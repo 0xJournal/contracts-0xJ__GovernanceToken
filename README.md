@@ -69,11 +69,11 @@ The GovernanceToken contract is a standard ERC20 token with added functionality 
 The contract uses the OpenZeppelin AccessControl library for role-based access control, which is a good security practice. The contract has three roles: DEFAULT_ADMIN_ROLE, MINTER_ROLE, and BURNER_ROLE. The default admin is set to the contract deployer, and the deployer is also granted the MINTER_ROLE and BURNER_ROLE.
 
 ### State Variables
-The state variables max_supply, max_supply__LastChangeOn, max_supply__AdjustmentSpan, inflationChangesAllowed, and max_supply__InflationRatePct are all used to manage inflation. The available_mint variable is used to track the remaining mintable tokens.
+The state variables max_supply, `max_supply__LastChangeOn`, `max_supply__AdjustmentSpan`, `inflationChangesAllowed`, and `max_supply__InflationRatePct` are all used to manage inflation. The available_mint variable is used to track the remaining mintable tokens.
 
-All state variables are properly initialized in the constructor, except for inflationChangesAllowed, which is initialized to false and then set to true in the runInflation function. It is not clear why this variable needs to be initialized in the constructor when its value is immediately changed in the runInflation function.
+All state variables are properly initialized in the constructor, except for `inflationChangesAllowed`, which is initialized to false and then set to true in the runInflation function. It is not clear why this variable needs to be initialized in the constructor when its value is immediately changed in the runInflation function.
 
-The available_mint variable is properly updated in the mint and mint_allAvailable functions, but it is not updated in the burn function, which could result in the contract being unable to mint the total supply if some tokens are burned.
+The `available_mint` variable is properly updated in the `mint` and `mint_allAvailable` functions, but it is not updated in the `burn` function, which could result in the contract being unable to mint the total supply if some tokens are burned.
 
 ### Minting
 The mint function is only accessible by users with the MINTER_ROLE and ensures that the amount being minted is not greater than the available mintable tokens. The mint_allAvailable function mints all remaining tokens, but it is not clear why this function is needed, as the mint function already ensures that the amount being minted is not greater than the available mintable tokens.
