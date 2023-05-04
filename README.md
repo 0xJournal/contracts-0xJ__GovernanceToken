@@ -58,8 +58,7 @@ The contract contains several state variables and functions that are described b
 
 The contract has a security contact email specified in the code.
 
-___
-# Contract Security Assessment
+# Contract Security Assessment : v0.1
 
 ## Contract Overview
 The GovernanceToken contract is a standard ERC20 token with added functionality to control inflation and burn tokens. The contract also utilizes OpenZeppelin contracts for ERC20 and Access Control.
