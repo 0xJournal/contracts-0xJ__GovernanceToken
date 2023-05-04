@@ -12,10 +12,9 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
     uint256 public max_supply = 0;
     uint256 public max_supply__LastChangeOn = 0;
-    uint256 public max_supply__AdjustmentSpan = 0;
+    uint256 public max_supply__AdjustmentSpan = 365 days;
     bool inflationChangesAllowed = false;
-
-    uint256 max_supply__InflationRatePct = 0;
+    uint256 max_supply__InflationRatePct = 2;
 
     uint256 public available_mint = 0;
 
@@ -25,17 +24,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         _grantRole(BURNER_ROLE, msg.sender);
 
         max_supply = 220_000_000 * decimals();
-
         max_supply__LastChangeOn = block.timestamp;
-        max_supply__AdjustmentSpan = 365 days;
-        max_supply__InflationRatePct = 2;
-
         available_mint = max_supply;
-    }
-
-    // TEMPORARY!
-    function decimals() public pure override returns (uint8) {
-        return 0;
     }
 
     /// Mint
@@ -101,12 +91,15 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     /// Burn
 
     function burn(uint256 amount) public override onlyRole(BURNER_ROLE) {
-        require(amount > 0, "Burn number shall be non-zero positive");
+        require(amount > 0, "Burn number shall be non-zero positive.");
         require(
             balanceOf(msg.sender) >= amount,
             "Not enough tokens to burn this amount."
         );
 
-        burn(amount);
+        super.burn(amount);
+
+        max_supply -= amount;
+        
     }
 }
