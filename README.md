@@ -28,25 +28,68 @@ This contract is released under the MIT License, as defined in the SPDX-License-
 ## <ins>Code Documentation</ins>
 This is a Solidity smart contract that defines a custom ERC20 token called "GovernanceToken". It inherits from the OpenZeppelin contracts: ERC20, ERC20Burnable, and AccessControl.
 
-The contract defines two roles: "MINTER_ROLE" and "BURNER_ROLE". The minter role is responsible for creating new tokens and the burner role is responsible for burning existing tokens. By default, the contract creator is granted all roles.
+The contract contains several state variables and functions that are described below:
 
-The contract has several state variables:
+### State Variables:
 
-- `max_supply`: The maximum supply of tokens that can ever exist.
-- `max_supply__LastChangeOn`: Timestamp of the last time the max_supply value was changed.
-- `max_supply__AdjustmentSpan`: The duration after which the max_supply value can be changed.
-- `inflationChangesAllowed`: A boolean flag that indicates if changes to inflation parameters are allowed.
-- `max_supply__InflationRatePct`: The rate of inflation as a percentage of the existing supply.
-- `available_mint`: The amount of tokens that are available to be minted.
+- `max_supply`: an unsigned integer that represents the maximum supply of tokens that can be minted.
+- `max_supply__LastChangeOn`: an unsigned integer that represents the timestamp of the last time the maximum supply was changed.
+- `max_supply__AdjustmentSpan`: an unsigned integer that represents the time duration after which the maximum supply can be changed again.
+- `inflationChangesAllowed`: a boolean flag that allows for changes in inflation after the first round of inflation has taken place.
+- `max_supply__InflationRatePct`: an unsigned integer that represents the inflation rate as a percentage.
+- `available_mint`: an unsigned integer that represents the number of mintable tokens that are currently available.
 
-The constructor sets the initial values of these state variables. The maximum supply is set to 220 million tokens. The max_supply__LastChangeOn value is set to the current timestamp, and the `max_supply__AdjustmentSpan` value is set to 365 days. The inflation rate is set to 2% per year.
+### Functions:
 
-The contract has three functions for minting new tokens:
+- `constructor`: initializes the contract and sets the initial values for the maximum supply, inflation rate, and available mintable tokens.
+- `runInflation`: allows the contract owner to run an inflation round by adding the new mintable tokens to the maximum supply.
+- `setInflationParams`: allows the contract owner to set the inflation rate and the adjustment span for the next round of inflation.
+- `mint`: allows a user with the MINTER_ROLE to mint new tokens and add them to the total supply.
+- `mint_allAvailable`: allows a user with the MINTER_ROLE to mint all available tokens and add them to the total supply.
+- `burn`: allows a user with the BURNER_ROLE to burn tokens from their own account.
 
-- `runInflation()`: This function allows the contract owner to run an inflation round, which mints new tokens and increases the maximum supply. It checks that there are no available mints remaining, and that the required timespan has passed since the last time the max_supply value was changed. If these conditions are met, it calculates the new maximum supply by adding the inflation rate percentage to the existing supply, and sets the available_mint value to the newly minted tokens. Finally, it updates the max_supply__LastChangeOn value and sets the inflationChangesAllowed flag to true.
-- `setInflationParams(uint ratePct, uint span)`: This function allows the contract owner to change the inflation parameters. It checks that the inflation changes are allowed, and that the new timespan is at least 180 days. If these conditions are met, it updates the max_supply__InflationRatePct and max_supply__AdjustmentSpan values, and sets the inflationChangesAllowed flag to false.
-- `mint(address to, uint256 amount)`: This function allows a user with the MINTER_ROLE to mint new tokens and transfer them to a specified address. It checks that the user has provided a valid address, a positive amount, that there are available tokens to mint, and that the amount does not exceed the available mintable tokens. If these conditions are met, it mints the tokens, updates the available_mint value, and transfers the tokens to the specified address.
+### Access Control:
 
-The contract also has a function for burning tokens:
+- `DEFAULT_ADMIN_ROLE`: a constant role that is assigned to the contract owner.
+- `MINTER_ROLE`: a role that is assigned to users who are allowed to mint new tokens.
+- `BURNER_ROLE`: a role that is assigned to users who are allowed to burn tokens.
 
-- `burn(uint256 amount)`: This function allows a user with the BURNER_ROLE to burn their own tokens. It checks that the user has provided a non-zero positive amount, and that they have enough tokens to burn. If these conditions are met, it calls the burn() function inherited from ERC20Burnable to burn the tokens.
+### Security:
+
+The contract has a security contact email specified in the code.
+
+___
+# Contract Security Assessment
+
+## Contract Overview
+The GovernanceToken contract is a standard ERC20 token with added functionality to control inflation and burn tokens. The contract also utilizes OpenZeppelin contracts for ERC20 and Access Control.
+
+## Security Assessment
+### Access Control
+The contract uses the OpenZeppelin AccessControl library for role-based access control, which is a good security practice. The contract has three roles: DEFAULT_ADMIN_ROLE, MINTER_ROLE, and BURNER_ROLE. The default admin is set to the contract deployer, and the deployer is also granted the MINTER_ROLE and BURNER_ROLE.
+
+### State Variables
+The state variables max_supply, max_supply__LastChangeOn, max_supply__AdjustmentSpan, inflationChangesAllowed, and max_supply__InflationRatePct are all used to manage inflation. The available_mint variable is used to track the remaining mintable tokens.
+
+All state variables are properly initialized in the constructor, except for inflationChangesAllowed, which is initialized to false and then set to true in the runInflation function. It is not clear why this variable needs to be initialized in the constructor when its value is immediately changed in the runInflation function.
+
+The available_mint variable is properly updated in the mint and mint_allAvailable functions, but it is not updated in the burn function, which could result in the contract being unable to mint the total supply if some tokens are burned.
+
+### Minting
+The mint function is only accessible by users with the MINTER_ROLE and ensures that the amount being minted is not greater than the available mintable tokens. The mint_allAvailable function mints all remaining tokens, but it is not clear why this function is needed, as the mint function already ensures that the amount being minted is not greater than the available mintable tokens.
+
+### Burning
+The burn function is only accessible by users with the BURNER_ROLE. However, the function calls itself recursively, resulting in a stack overflow error and preventing tokens from being burned.
+
+### Other Issues
+The contract does not include any mechanism to pause or freeze token transfers, which can be a security risk in case of an attack. Also, there is no function to set a new admin or remove the current admin, which can be problematic if the admin's account is compromised.
+
+## Recommendations
+- Remove the recursive call in the burn function and call the OpenZeppelin ERC20Burnable implementation instead.
+- Add a mechanism to pause or freeze token transfers.
+- Add a function to set a new admin or remove the current admin.
+- Remove the inflationChangesAllowed variable from the constructor, as it is immediately set to true in the runInflation function.
+- Update the available_mint variable in the burn function to ensure that it accurately reflects the remaining mintable tokens.
+
+## Conclusion
+Overall, the GovernanceToken contract appears to be well-written and follows good security practices. However, there are a few issues that need to be addressed to ensure that the contract is secure and functioning as intended.
