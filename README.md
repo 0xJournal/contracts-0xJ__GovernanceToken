@@ -97,7 +97,9 @@ The GovernanceToken contract is a standard ERC20 token with added functionality 
 
 ### Recommendations:
 - The contract should define events for the `mint()` and `burn()` functions to enable easier tracking of these transactions.
+  - [✔️ Done.]
 - The contract should implement a transfer fee to discourage frequent token transfers and incentivize users to hold their tokens.
+  - [❌ Unnecessary, it won't be implemented.]
 
 ### Conclusion:
 The contract defines a GovernanceToken ERC20 token that allows for minting and burning of tokens by the contract owner. The contract also includes inflation parameters that can be adjusted by the contract owner after a certain period. The contract implements access control using the `AccessControl` library and defines the `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE`, and `BURNER
