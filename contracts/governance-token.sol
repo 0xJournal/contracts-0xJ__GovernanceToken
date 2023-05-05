@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /// @title GovernanceToken
-/// @custom:version 0.2
+/// @custom:version 0.2a
 /// @custom:security-contact contact@0xjournal.com
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
@@ -19,6 +19,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     uint256 max_supply__InflationRatePct = 2;
 
     uint256 public available_mint = 0;
+
+    event InflationParamsChanged(uint256 indexed newInflationRatePct, uint256 newAdjustmentSpan);
 
     constructor() ERC20("0xJournal", "0xJ") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -69,6 +71,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
         max_supply__InflationRatePct = ratePct;
         max_supply__AdjustmentSpan = span;
+        emit InflationParamsChanged(max_supply__InflationRatePct, max_supply__AdjustmentSpan);
+
         inflationChangesAllowed = false;
     }
 
