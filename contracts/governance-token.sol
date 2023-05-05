@@ -6,13 +6,14 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /// @title GovernanceToken
-/// @custom:version 0.2b
+/// @custom:version 0.2c
 /// @custom:security-contact contact@0xjournal.com
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 private constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
     uint256 public max_supply = 0;
+    uint256 MAX_CAP = 500_000_000;
     uint256 public max_supply__LastChangeOn = 0;
     uint256 public max_supply__AdjustmentSpan = 365 days;
     bool inflationChangesAllowed = false;
@@ -39,6 +40,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
             available_mint == 0,
             "There is still available mints to be made before allowing to run inflation."
         );
+        require(max_supply <= MAX_CAP, 'Max supply already on max limit.');
 
         uint256 timenow = block.timestamp;
         uint256 duration = timenow - max_supply__LastChangeOn;
@@ -48,12 +50,17 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         );
 
         uint256 add_supply = (max_supply * max_supply__InflationRatePct) / 100;
-        max_supply += add_supply;
-        available_mint = add_supply;
-
+        if (max_supply + add_supply >= MAX_CAP){
+            available_mint = MAX_CAP - max_supply;
+            max_supply = MAX_CAP;
+        }
+        else{
+            available_mint = add_supply;
+            max_supply += add_supply;
+            inflationChangesAllowed = true;
+        }
+        
         max_supply__LastChangeOn = timenow;
-
-        inflationChangesAllowed = true;
     }
 
     function setInflationParams(uint256 ratePct, uint256 span)
