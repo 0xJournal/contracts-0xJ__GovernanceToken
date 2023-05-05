@@ -89,9 +89,13 @@ The `burn` function is used to burn tokens and can only be called by an account 
 
 ### Recommendations
 - Consider adding a function to transfer the ownership of the contract to another account.
+  - [✔️ Not needed. AccessControl already provides that.]
 - Consider using events to log the changes to the state variables, particularly the maximum supply and the inflation parameters.
+  - [✔️ Done.]
 - Consider adding more granular control to the `MINTER_ROLE` and `BURNER_ROLE` roles, such as the ability to mint/burn only up to a certain amount of tokens.
+  - [❌ Not needed, it won't be implemented.]
 - Replace the assert statement in the mint function with a require statement to provide a more informative error message if the condition fails.
+  - [❌ Rejected. Assert is a post-condition necessary to check under/overflow integrity.]
 
 ### Conclusion
 - The GovernanceToken contract appears to be well-written and follows best practices in terms of security and efficiency. However, there are some suggestions for improvements, particularly around the ownership transfer and the use of events.
