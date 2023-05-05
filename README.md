@@ -121,11 +121,16 @@ The GovernanceToken contract is a standard ERC20 token with added functionality 
 - The contract does not include any mechanism to pause or freeze token transfers, which can be a security risk in case of an attack. Also, there is no function to set a new admin or remove the current admin, which can be problematic if the admin's account is compromised.
 
 ## Recommendations
-- Remove the recursive call in the burn function and call the OpenZeppelin ERC20Burnable implementation instead.
-- Add a mechanism to pause or freeze token transfers.
-- Add a function to set a new admin or remove the current admin.
-- Remove the inflationChangesAllowed variable from the constructor, as it is immediately set to true in the runInflation function.
-- Update the available_mint variable in the burn function to ensure that it accurately reflects the remaining mintable tokens.
+- Remove the recursive call in the burn function and call the OpenZeppelin ERC20Burnable implementation instead. 
+  - [✔️ Done]
+- Add a mechanism to pause or freeze token transfers. 
+  - [❌ Not needed, we don't want stakeholders to be stuck.]
+- Add a function to set a new admin or remove the current admin. 
+  - [✔️ Not needed. AccessControl already provides that.]
+- Remove the inflationChangesAllowed variable from the constructor, as it is immediately set to true in the runInflation function. 
+  - [✔️ Done]
+- Update the `available_mint` variable in the burn function to ensure that it accurately reflects the remaining mintable tokens. 
+  - [❗ Resolved, but `max_supply` was updated instead.]
 
 ## Conclusion
 - Overall, the GovernanceToken contract appears to be well-written and follows good security practices. However, there are a few issues that need to be addressed to ensure that the contract is secure and functioning as intended.
