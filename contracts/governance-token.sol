@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /// @title GovernanceToken
-/// @custom:version 0.2a
+/// @custom:version 0.2b
 /// @custom:security-contact contact@0xjournal.com
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
