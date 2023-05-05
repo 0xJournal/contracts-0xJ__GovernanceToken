@@ -27,7 +27,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         _grantRole(MINTER_ROLE, msg.sender);
         _grantRole(BURNER_ROLE, msg.sender);
 
-        max_supply = 220_000_000 * decimals();
+        max_supply = 220_000_000 * 10 ** decimals();
         max_supply__LastChangeOn = block.timestamp;
         available_mint = max_supply;
     }
