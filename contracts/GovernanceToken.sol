@@ -3,14 +3,12 @@ pragma solidity ^0.8.19;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import "./AccessControl.sol";
 
 /// @title GovernanceToken
 /// @custom:version 0.4a
 /// @custom:security-contact contact@0xjournal.com
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
-    bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
-    bytes32 private constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
     uint256 public constant MAX_CAP = 500_000_000; // In units of token (no decimals)
     uint256 public max_supply = 220_000_000; // In units of token (no decimals)
@@ -27,10 +25,6 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     event Burn(address indexed from, uint256 amount);
 
     constructor() ERC20("0xJournal", "0xJ") {
-        _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
-        _grantRole(MINTER_ROLE, msg.sender);
-        _grantRole(BURNER_ROLE, msg.sender);
-
         max_supply__LastChangeOn = block.timestamp;
     }
 
@@ -45,7 +39,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
     /// Mint
 
-    function runInflation(bool enable) public onlyRole(DEFAULT_ADMIN_ROLE) {
+    function runInflation(bool enable) public requireAdmin {
         require(
             available_mint == 0,
             "There is still available mints to be made before allowing to run inflation."
@@ -83,7 +77,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
     function setInflationParams(uint256 ratePct, uint256 span)
         public
-        onlyRole(DEFAULT_ADMIN_ROLE)
+        requireAdmin
     {
         require(
             inflationChangesActive,
@@ -101,7 +95,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         inflationChangesActive = false;
     }
 
-    function mint(address to, uint256 amount /*in units of token (no decimals*/ ) public onlyRole(MINTER_ROLE) {
+    function mint(address to, uint256 amount /*in units of token (no decimals*/ ) public requireMinter {
         require(to != address(0), "Null address.");
         require(amount > 0, "Amount not positive.");
         require(available_mint > 0, "Not available mintable tokens.");
@@ -117,13 +111,13 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         emit Mint(to, amount);
     }
 
-    function mint_allAvailable(address to) public onlyRole(MINTER_ROLE) {
+    function mint_allAvailable(address to) public requireMinter {
         mint(to, available_mint);
     }
 
     /// Burn
 
-    function burn(uint256 amount) public override onlyRole(BURNER_ROLE) {
+    function burn(uint256 amount) public override requireBurner {
         require(amount > 0, "Burn number shall be non-zero positive.");
         require(
             balanceOf(msg.sender) >= amount,
