@@ -10,28 +10,28 @@ import "./AccessControl.sol";
 /// @custom:security-contact contact@0xjournal.com
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
-    uint256 public constant MAX_CAP = 500_000_000; // In units of token (no decimals)
-    uint256 public max_supply = 220_000_000; // In units of token (no decimals)
-    uint256 public available_mint = 220_000_000; // In units of token (no decimals)
+    uint256 public constant MAX_CAP = 500_000_000; /// Limit of max supply. In units of token (no decimals)
+    uint256 public max_supply = 220_000_000; /// Max supply. In units of token (no decimals)
+    uint256 public available_mint = 220_000_000; /// Current available number of tokens to be minted until reaching max supply. In units of token (no decimals)
 
-    uint256 public max_supply__LastChangeOn = 0;
+    uint256 public last_tuning_on = 0; /// Keeps the date on the last tuning of inflation parameters
 
-    bool inflationChangesActive = false;
+    bool inflation_tuning_active = false;
     
     uint256 public constant SPAN_MIN = 60 days; /// Min span period is 2 months
     uint256 public constant SPAN_MAX = 365 days; /// Max span period is 1 year
-    uint256 public max_supply__AdjustmentSpan = 365 days; /// Span of time necessary to allow an adjustment of max supply due to inflation. It starts at 354 days.
+    uint256 public tuning_span = 365 days; /// Span of time necessary to allow adjustments (tuning) of max supply due to inflation. It starts at 354 days.
 
     uint256 public constant MAX_RATE = 10; /// Max inflation rate is 10%
-    uint256 max_supply__InflationRatePct = 2; /// Inflation rate for max supply (in percentage)
+    uint256 public inflation_rate = 2; /// Inflation rate for max supply (in percentage)
 
     event InflationRun(bool indexed enabled);
-    event InflationParamsChanged(uint256 indexed newInflationRatePct, uint256 newAdjustmentSpan);
+    event InflationTuned(uint256 indexed newInflationRatePct, uint256 newAdjustmentSpan);
     event Mint(address indexed to, uint256 amount);
     event Burn(address indexed from, uint256 amount);
 
     constructor() ERC20("0xJournal", "0xJ") {
-        max_supply__LastChangeOn = block.timestamp;
+        last_tuning_on = block.timestamp;
     }
 
     /* TODOs :
@@ -53,17 +53,17 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         require(max_supply <= MAX_CAP, 'Max supply already on max limit.');
 
         uint256 timenow = block.timestamp;
-        uint256 duration = timenow - max_supply__LastChangeOn;
+        uint256 duration = timenow - last_tuning_on;
         require(
-            duration >= max_supply__AdjustmentSpan,
+            duration >= tuning_span,
             "Span for mint params redefinition has not been reached yet."
         );
         
         // Inflation changes are already active : this means that runInflation() has been already run once at this period.
-        require(!inflationChangesActive, 'Inflation changes are already active.'); 
+        require(!inflation_tuning_active, 'Inflation changes are already active.'); 
         
         if (enable){
-            uint256 add_supply = (max_supply * max_supply__InflationRatePct) / 100;
+            uint256 add_supply = (max_supply * inflation_rate) / 100;
             if (max_supply + add_supply >= MAX_CAP){
                 available_mint = MAX_CAP - max_supply;
                 max_supply = MAX_CAP;
@@ -71,14 +71,14 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
             else{
                 available_mint = add_supply;
                 max_supply += add_supply;
-                inflationChangesActive = true;
+                inflation_tuning_active = true;
             }
         }
         else{
-            inflationChangesActive = true;
+            inflation_tuning_active = true;
         }
 
-        max_supply__LastChangeOn = timenow;
+        last_tuning_on = timenow;
         emit InflationRun(enable);
     }
 
@@ -87,7 +87,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         requireAdmin
     {
         require(
-            inflationChangesActive,
+            inflation_tuning_active,
             "Changes on inflation are only allowed after an inflation round."
         );
         require(
@@ -98,11 +98,11 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
             newRatePct <= MAX_RATE, "Max inflation rate exceeded."
         );
 
-        max_supply__InflationRatePct = newRatePct;
-        max_supply__AdjustmentSpan = newSpan;
-        emit InflationParamsChanged(max_supply__InflationRatePct, max_supply__AdjustmentSpan);
+        inflation_rate = newRatePct;
+        tuning_span = newSpan;
+        emit InflationTuned(inflation_rate, tuning_span);
 
-        inflationChangesActive = false;
+        inflation_tuning_active = false;
     }
 
     function mint(address to, uint256 amount /*in units of token (no decimals*/ ) public requireMinter {

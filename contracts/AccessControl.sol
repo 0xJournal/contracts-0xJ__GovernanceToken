@@ -2,43 +2,43 @@
 pragma solidity ^0.8.19;
 
 abstract contract AccessControl {
-    mapping(address => bool) internal __admins;
-    mapping(address => bool) internal __burners;
-    mapping(address => bool) internal __minters;
+    mapping(address => bool) internal admins;
+    mapping(address => bool) internal burners;
+    mapping(address => bool) internal minters;
 
     constructor() {
-        __admins[msg.sender] = true;
-        __burners[msg.sender] = true;
-        __minters[msg.sender] = true;
+        admins[msg.sender] = true;
+        burners[msg.sender] = true;
+        minters[msg.sender] = true;
     }
 
     modifier requireAdmin() {
-        require(__admins[msg.sender], "Not admin.");
+        require(admins[msg.sender], "Not admin.");
         _;
     }
     modifier requireMinter() {
-        require(__minters[msg.sender], "Not minter.");
+        require(minters[msg.sender], "Not minter.");
         _;
     }
     modifier requireBurner() {
-        require(__burners[msg.sender], "Not burner.");
+        require(burners[msg.sender], "Not burner.");
         _;
     }
 
     function setAdmin(address who, bool enable) public requireAdmin {
-        __admins[who] = enable;
+        admins[who] = enable;
     }
 
     function setMinter(address who, bool enable) public requireAdmin {
-        __minters[who] = enable;
+        minters[who] = enable;
     }
 
     function setBurner(address who, bool enable) public requireAdmin {
-        __burners[who] = enable;
+        burners[who] = enable;
     }
 
     function revokeAdmin(address to) public requireAdmin {
-        __admins[to] = true;
-        __admins[msg.sender] = false;
+        admins[to] = true;
+        admins[msg.sender] = false;
     }
 }
