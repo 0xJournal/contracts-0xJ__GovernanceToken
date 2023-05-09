@@ -14,12 +14,18 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     uint256 public max_supply = 220_000_000; // In units of token (no decimals)
     uint256 public available_mint = 220_000_000; // In units of token (no decimals)
 
-    uint256 max_supply__InflationRatePct = 2;
     uint256 public max_supply__LastChangeOn = 0;
-    uint256 public max_supply__AdjustmentSpan = 365 days;
 
     bool inflationChangesActive = false;
     
+    uint256 public constant SPAN_MIN = 60 days; /// Min span period is 2 months
+    uint256 public constant SPAN_MAX = 365 days; /// Max span period is 1 year
+    uint256 public max_supply__AdjustmentSpan = 365 days; /// Span of time necessary to allow an adjustment of max supply due to inflation. It starts at 354 days.
+
+    uint256 public constant MAX_RATE = 10; /// Max inflation rate is 10%
+    uint256 max_supply__InflationRatePct = 2; /// Inflation rate for max supply (in percentage)
+
+    event InflationRun(bool indexed enabled);
     event InflationParamsChanged(uint256 indexed newInflationRatePct, uint256 newAdjustmentSpan);
     event Mint(address indexed to, uint256 amount);
     event Burn(address indexed from, uint256 amount);
@@ -29,8 +35,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     }
 
     /* TODOs :
-    - Remove OpenZepelin AccessControl : lots of warnings
-    - Think about that makes the most sense regarding the SPAN limits : maybe it should be >60 days and always be <=365 days?
+    - [ok] Remove OpenZepelin AccessControl : lots of warnings
+    - [ok] Think about that makes the most sense regarding the SPAN limits : maybe it should be >60 days and always be <=365 days?
     - Natspec : document all functions and variables
     - Publish the design, for each function write a mermaid diagram
     - Update the readme doc.
@@ -73,9 +79,10 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         }
 
         max_supply__LastChangeOn = timenow;
+        emit InflationRun(enable);
     }
 
-    function setInflationParams(uint256 ratePct, uint256 span)
+    function setInflationParams(uint256 newRatePct, uint256 newSpan)
         public
         requireAdmin
     {
@@ -84,12 +91,15 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
             "Changes on inflation are only allowed after an inflation round."
         );
         require(
-            span >= 180 days,
-            "Inflation period is required to be greater than 180 days"
+            newSpan >= SPAN_MIN && newSpan <= SPAN_MAX,
+            "Span limits exceeds."
+        );
+        require(
+            newRatePct <= MAX_RATE, "Max inflation rate exceeded."
         );
 
-        max_supply__InflationRatePct = ratePct;
-        max_supply__AdjustmentSpan = span;
+        max_supply__InflationRatePct = newRatePct;
+        max_supply__AdjustmentSpan = newSpan;
         emit InflationParamsChanged(max_supply__InflationRatePct, max_supply__AdjustmentSpan);
 
         inflationChangesActive = false;
