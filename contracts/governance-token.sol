@@ -6,21 +6,22 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/access/AccessControl.sol";
 
 /// @title GovernanceToken
-/// @custom:version 0.4
+/// @custom:version 0.4a
 /// @custom:security-contact contact@0xjournal.com
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 private constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
-    uint256 public max_supply = 0;
-    uint256 MAX_CAP = 500_000_000;
+    uint256 public MAX_CAP = 500_000_000; // In units of token (no decimals)
+    uint256 public max_supply = 220_000_000; // In units of token (no decimals)
+    uint256 public available_mint = 220_000_000; // In units of token (no decimals)
+
+    uint256 max_supply__InflationRatePct = 2;
     uint256 public max_supply__LastChangeOn = 0;
     uint256 public max_supply__AdjustmentSpan = 365 days;
+
     bool inflationChangesAllowed = false;
-    uint256 max_supply__InflationRatePct = 2;
-
-    uint256 public available_mint = 0;
-
+    
     event InflationParamsChanged(uint256 indexed newInflationRatePct, uint256 newAdjustmentSpan);
     event Mint(address indexed to, uint256 amount);
     event Burn(address indexed from, uint256 amount);
@@ -30,9 +31,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         _grantRole(MINTER_ROLE, msg.sender);
         _grantRole(BURNER_ROLE, msg.sender);
 
-        max_supply = 220_000_000 * 10 ** decimals();
         max_supply__LastChangeOn = block.timestamp;
-        available_mint = max_supply;
     }
 
     /// Mint
@@ -85,7 +84,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         inflationChangesAllowed = false;
     }
 
-    function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
+    function mint(address to, uint256 amount /*in units of token (no decimals*/ ) public onlyRole(MINTER_ROLE) {
         require(to != address(0), "Null address.");
         require(amount > 0, "Amount not positive.");
         require(available_mint > 0, "Not available mintable tokens.");
@@ -95,7 +94,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         );
         assert(available_mint < available_mint - amount);
 
-        _mint(to, amount);
+        _mint(to, amount * 10 ** decimals());
         available_mint -= amount;
 
         emit Mint(to, amount);
