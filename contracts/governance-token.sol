@@ -34,6 +34,15 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         max_supply__LastChangeOn = block.timestamp;
     }
 
+    /* TODOs :
+    - Remove OpenZepelin AccessControl : lots of warnings
+    - Think about that makes the most sense regarding the SPAN limits : maybe it should be >60 days and always be <=365 days?
+    - Natspec : document all functions and variables
+    - Publish the design, for each function write a mermaid diagram
+    - Update the readme doc.
+    - Verify code at testnet
+    */
+
     /// Mint
 
     function runInflation(bool enable) public onlyRole(DEFAULT_ADMIN_ROLE) {
