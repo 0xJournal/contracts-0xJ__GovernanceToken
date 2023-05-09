@@ -12,7 +12,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     bytes32 private constant MINTER_ROLE = keccak256("MINTER_ROLE");
     bytes32 private constant BURNER_ROLE = keccak256("BURNER_ROLE");
 
-    uint256 public MAX_CAP = 500_000_000; // In units of token (no decimals)
+    uint256 public constant MAX_CAP = 500_000_000; // In units of token (no decimals)
     uint256 public max_supply = 220_000_000; // In units of token (no decimals)
     uint256 public available_mint = 220_000_000; // In units of token (no decimals)
 
