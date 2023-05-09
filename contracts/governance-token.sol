@@ -92,7 +92,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
             amount <= available_mint,
             "Amount surpasses available mintable"
         );
-        assert(available_mint < available_mint - amount);
+        assert(available_mint > available_mint - amount);
 
         _mint(to, amount * 10 ** decimals());
         available_mint -= amount;
