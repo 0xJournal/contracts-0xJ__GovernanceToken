@@ -20,7 +20,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     uint256 public max_supply__LastChangeOn = 0;
     uint256 public max_supply__AdjustmentSpan = 365 days;
 
-    bool inflationChangesAllowed = false;
+    bool inflationChangesActive = false;
     
     event InflationParamsChanged(uint256 indexed newInflationRatePct, uint256 newAdjustmentSpan);
     event Mint(address indexed to, uint256 amount);
@@ -36,7 +36,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
     /// Mint
 
-    function runInflation() public onlyRole(DEFAULT_ADMIN_ROLE) {
+    function runInflation(bool enable) public onlyRole(DEFAULT_ADMIN_ROLE) {
         require(
             available_mint == 0,
             "There is still available mints to be made before allowing to run inflation."
@@ -49,18 +49,26 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
             duration >= max_supply__AdjustmentSpan,
             "Span for mint params redefinition has not been reached yet."
         );
-
-        uint256 add_supply = (max_supply * max_supply__InflationRatePct) / 100;
-        if (max_supply + add_supply >= MAX_CAP){
-            available_mint = MAX_CAP - max_supply;
-            max_supply = MAX_CAP;
+        
+        // Inflation changes are already active : this means that runInflation() has been already run once at this period.
+        require(!inflationChangesActive, 'Inflation changes are already active.'); 
+        
+        if (enable){
+            uint256 add_supply = (max_supply * max_supply__InflationRatePct) / 100;
+            if (max_supply + add_supply >= MAX_CAP){
+                available_mint = MAX_CAP - max_supply;
+                max_supply = MAX_CAP;
+            }
+            else{
+                available_mint = add_supply;
+                max_supply += add_supply;
+                inflationChangesActive = true;
+            }
         }
         else{
-            available_mint = add_supply;
-            max_supply += add_supply;
-            inflationChangesAllowed = true;
+            inflationChangesActive = true;
         }
-        
+
         max_supply__LastChangeOn = timenow;
     }
 
@@ -69,7 +77,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         onlyRole(DEFAULT_ADMIN_ROLE)
     {
         require(
-            inflationChangesAllowed,
+            inflationChangesActive,
             "Changes on inflation are only allowed after an inflation round."
         );
         require(
@@ -81,7 +89,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         max_supply__AdjustmentSpan = span;
         emit InflationParamsChanged(max_supply__InflationRatePct, max_supply__AdjustmentSpan);
 
-        inflationChangesAllowed = false;
+        inflationChangesActive = false;
     }
 
     function mint(address to, uint256 amount /*in units of token (no decimals*/ ) public onlyRole(MINTER_ROLE) {
