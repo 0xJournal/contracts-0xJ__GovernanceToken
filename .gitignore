@@ -1,3 +1,6 @@
 /contracts/.prettierrc.json
 /contracts/artifacts
 /contracts/_archive
+/contracts/.deps
+/contracts/tests
+/~$Gas estimation.xlsx
