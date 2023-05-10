@@ -4,3 +4,4 @@
 /contracts/.deps
 /contracts/tests
 /~$Gas estimation.xlsx
+/contracts/remix-slither-report.json
