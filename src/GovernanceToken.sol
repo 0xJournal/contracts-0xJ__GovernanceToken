@@ -26,9 +26,11 @@
 - [ok] Remove OpenZepelin AccessControl : lots of warnings
 - [ok] Think about that makes the most sense regarding the SPAN limits : maybe it should be >60 days and always be <=365 days?
 - [ok] Natspec : document all functions and variables
+- [ok] Verify code at testnet
+- Include whitebox tests for functions
+- Optimize by replacing the require clauses for if/revert/error
 - Publish the design, for each function write a mermaid diagram
 - Update the readme doc.
-- Verify code at testnet
 */
 
 pragma solidity ^0.8.18;
