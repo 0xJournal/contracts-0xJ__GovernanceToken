@@ -27,8 +27,8 @@
 - [ok] Think about that makes the most sense regarding the SPAN limits : maybe it should be >60 days and always be <=365 days?
 - [ok] Natspec : document all functions and variables
 - [ok] Verify code at testnet
+- [ok] Optimize by replacing the require clauses for if/revert/error
 - Include whitebox tests for functions
-- Optimize by replacing the require clauses for if/revert/error
 - Publish the design, for each function write a mermaid diagram
 - Update the readme doc.
 */
@@ -39,6 +39,24 @@ pragma solidity ^0.8.18;
 // import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "./OpenZeppelin-Deps_flattened.sol";
 import "./AccessControl.sol";
+
+/// Errors at runInflation()
+error StillAvailableMints(); /// There is still available mints to be made before allowing to run inflation.
+error MaxSupplyIsCapped(); /// Max supply already on max limit.
+error SpanNotReached(); /// Span for mint params redefinition has not been reached yet.
+error InflationTuningActive(); /// Inflation changes are already active.
+
+/// Erros at tuneInflation()
+error InflationTuningNotActive(); /// Changes on inflation are only allowed after an inflation round.
+error SpanUnlimited(); /// Span limits exceeds.
+error RateUnlimited(); /// Max inflation rate exceeded.
+
+/// Errors at mint() and burn()
+error NullAddress(); /// Null address.
+error NotPositiveAmount(); /// Amount not positive.
+error NotAvailableMints(); /// Not available mintable tokens.
+error AmountExceedsMintable(); /// Amount surpasses available mintable.
+error AmountExceedsBurnable(); /// Not enough tokens to burn this amount.
 
 /**
  * @title GovernanceToken
@@ -91,24 +109,16 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
      * - Throws an error if any of the above conditions are not met.
      */
     function runInflation(bool enable) public requireAdmin {
-        require(
-            available_mint == 0,
-            "There is still available mints to be made before allowing to run inflation."
-        );
-        require(max_supply <= MAX_CAP, "Max supply already on max limit.");
+        if (!(available_mint == 0)) revert StillAvailableMints();
+        if (!(max_supply <= MAX_CAP)) revert MaxSupplyIsCapped();
 
         uint256 timenow = block.timestamp;
         uint256 duration = timenow - last_tuning_on;
-        require(
-            duration >= tuning_span,
-            "Span for mint params redefinition has not been reached yet."
-        );
+        if (!(duration >= tuning_span)) revert SpanNotReached();
 
-        // Inflation tuning is already active : this means that runInflation() has been already run once at this period.
-        require(
-            !inflation_tuning_active,
-            "Inflation changes are already active."
-        );
+        // Inflation tuning is already active : this means that r
+        // unInflation() has been already run once at this period.
+        if (inflation_tuning_active) revert InflationTuningActive();
 
         if (enable) {
             uint256 add_supply = (max_supply * inflation_rate) / 100;
@@ -147,15 +157,9 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         public
         requireAdmin
     {
-        require(
-            inflation_tuning_active,
-            "Changes on inflation are only allowed after an inflation round."
-        );
-        require(
-            newSpan >= SPAN_MIN && newSpan <= SPAN_MAX,
-            "Span limits exceeds."
-        );
-        require(newRatePct <= MAX_RATE, "Max inflation rate exceeded.");
+        if (!inflation_tuning_active) revert InflationTuningNotActive();
+        if (!(newSpan >= SPAN_MIN && newSpan <= SPAN_MAX)) revert SpanUnlimited();
+        if (!(newRatePct <= MAX_RATE)) revert RateUnlimited();
 
         inflation_rate = newRatePct;
         tuning_span = newSpan;
@@ -185,13 +189,12 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         address to,
         uint256 amount /*in units of token (no decimals*/
     ) public requireMinter {
-        require(to != address(0), "Null address.");
-        require(amount > 0, "Amount not positive.");
-        require(available_mint > 0, "Not available mintable tokens.");
-        require(
-            amount <= available_mint,
-            "Amount surpasses available mintable"
-        );
+
+        if (!(to != address(0))) revert NullAddress();
+        if (!(amount > 0)) revert NotPositiveAmount();
+        if (!(available_mint > 0)) revert NotAvailableMints();
+        if (!(amount <= available_mint)) revert AmountExceedsMintable();
+        
         assert(available_mint > available_mint - amount);
 
         _mint(to, amount * 10**decimals());
@@ -214,11 +217,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
      * Emits an {Burn} event indicating the amount burned and the burner address.
      */
     function burn(uint256 amount) public override requireBurner {
-        require(amount > 0, "Burn number shall be non-zero positive.");
-        require(
-            balanceOf(msg.sender) >= amount,
-            "Not enough tokens to burn this amount."
-        );
+        if (!(amount > 0)) revert NotPositiveAmount();
+        if (!(balanceOf(msg.sender) >= amount * 10**decimals())) revert AmountExceedsBurnable();
 
         super.burn(amount);
 

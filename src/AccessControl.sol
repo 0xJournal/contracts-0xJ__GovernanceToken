@@ -1,6 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
+error NotAdmin();
+error NotMinter();
+error NotBurner();
+
 abstract contract AccessControl {
     mapping(address => bool) internal admins;
     mapping(address => bool) internal burners;
@@ -13,15 +17,15 @@ abstract contract AccessControl {
     }
 
     modifier requireAdmin() {
-        require(admins[msg.sender], "Not admin.");
+        if (!(admins[msg.sender])) revert NotAdmin();
         _;
     }
     modifier requireMinter() {
-        require(minters[msg.sender], "Not minter.");
+        if (!(minters[msg.sender])) revert NotMinter();
         _;
     }
     modifier requireBurner() {
-        require(burners[msg.sender], "Not burner.");
+        if (!(burners[msg.sender])) revert NotBurner();
         _;
     }
 
