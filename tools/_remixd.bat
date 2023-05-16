@@ -1,6 +1,6 @@
 @echo off
 cd ..
-cd contracts
+cd src
 
 echo ############################################################
 echo #### Mounting remidx at
