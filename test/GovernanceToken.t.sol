@@ -168,21 +168,85 @@ contract GovernanceTokenTest is Test {
 
     /* 
     ===========================================================================
-    Tests for runInflation() function
-    ===========================================================================
-    */
-
-    function testRunInflation() public {
-        assertEq(true, true);
-    }
-
-    /* 
-    ===========================================================================
     Tests for tuneInflation() function
     ===========================================================================
     */
 
+    event InflationTuned(
+        uint256 indexed newInflationRatePct,
+        uint256 newAdjustmentSpan
+    );
+
     function testTuneInflation() public {
-        assertEq(true, true);
+        // If a different user than the admin runs the function it should revert
+        vm.prank(usr_doe);
+        vm.expectRevert(AccessControl.NotAdmin.selector);
+        token.tuneInflation(10, 20);
+
+        // Now it should revert because inflation_tuning_active is not true
+        vm.expectRevert(GovernanceToken.InflationTuningNotActive.selector);
+        token.tuneInflation(10, 20);
+
+        // First tuning
+        {
+            // Creating conditions to enable inflation_tuning_active
+            token.mint(usr_jane, token.available_mint());
+            vm.warp(token.last_tuning_on() + token.tuning_span());
+            token.runInflation(true);
+
+            // Now it should fail because span is under MIN_SPAN
+            vm.expectRevert(GovernanceToken.SpanOfflimited.selector);
+            token.tuneInflation(10, 60 days - 1);
+
+            // It should fail because span is greater than MAX_SPAN
+            vm.expectRevert(GovernanceToken.SpanOfflimited.selector);
+            token.tuneInflation(10, 365 days + 1);
+
+            // It should fail because rate is is greater than MAX_RATE
+            vm.expectRevert(GovernanceToken.RateOfflimited.selector);
+            token.tuneInflation(11, 300 days);
+
+            // It should proceed now.
+            // 1. Test the event emission from InflationTuned
+            // - Tell Foundry which data to check
+            // - Emit the expected event
+            // - Call the function that should emit the event
+            // 2. Test for the correct assignment of the parameters
+            vm.expectEmit(true, true, true, true);
+            emit InflationTuned(10, 200 days);
+            token.tuneInflation(10, 200 days);
+            assertEq(token.inflation_rate(), 10);
+            assertEq(token.tuning_span(), 200 days);
+
+            // Variable inflation_tuning_active is disabled, so a new attempt
+            // should revert
+            vm.expectRevert(GovernanceToken.InflationTuningNotActive.selector);
+            token.tuneInflation(5, 150 days);
+        }
+
+        // Second tuning
+        {
+            // Creating conditions to enable inflation_tuning_active
+            token.mint(usr_jane, token.available_mint());
+            vm.warp(token.last_tuning_on() + token.tuning_span());
+            token.runInflation(true);
+
+            token.tuneInflation(5, 150 days);
+        }
+    }
+
+    /* 
+    ===========================================================================
+    Tests for runInflation() function
+    ===========================================================================
+    */
+
+    event InflationRun(bool indexed enabled);
+
+    function testRunInflation() public {
+        // If a different user than the admin runs the function it should revert
+        vm.prank(usr_doe);
+        vm.expectRevert(AccessControl.NotAdmin.selector);
+        token.runInflation(true);
     }
 }

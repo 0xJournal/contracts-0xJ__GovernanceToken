@@ -55,8 +55,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
     /// Erros at tuneInflation()
     error InflationTuningNotActive(); /// Changes on inflation are only allowed after an inflation round.
-    error SpanUnlimited(); /// Span limits exceeds.
-    error RateUnlimited(); /// Max inflation rate exceeded.
+    error SpanOfflimited(); /// Span limits exceeds.
+    error RateOfflimited(); /// Max inflation rate exceeded.
 
     /// Errors at mint() and burn()
     error NullAddress(); /// Null address.
@@ -71,13 +71,13 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
     uint256 public last_tuning_on = 0; /// Keeps the date on the last tuning of inflation parameters
 
-    bool inflation_tuning_active = false;
+    bool private inflation_tuning_active = false;
 
-    uint256 public constant SPAN_MIN = 60 days; /// Min span period is 2 months
-    uint256 public constant SPAN_MAX = 365 days; /// Max span period is 1 year
+    uint256 private constant SPAN_MIN = 60 days; /// Min span period is 2 months
+    uint256 private constant SPAN_MAX = 365 days; /// Max span period is 1 year
     uint256 public tuning_span = 365 days; /// Span of time necessary to allow adjustments (tuning) of max supply due to inflation. It starts at 354 days.
 
-    uint256 public constant MAX_RATE = 10; /// Max inflation rate is 10%
+    uint256 private constant MAX_RATE = 10; /// Max inflation rate is 10%
     uint256 public inflation_rate = 2; /// Inflation rate for max supply (in percentage)
 
     event InflationRun(bool indexed enabled);
@@ -160,8 +160,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     {
         if (!inflation_tuning_active) revert InflationTuningNotActive();
         if (!(newSpan >= SPAN_MIN && newSpan <= SPAN_MAX))
-            revert SpanUnlimited();
-        if (!(newRatePct <= MAX_RATE)) revert RateUnlimited();
+            revert SpanOfflimited();
+        if (!(newRatePct <= MAX_RATE)) revert RateOfflimited();
 
         inflation_rate = newRatePct;
         tuning_span = newSpan;
