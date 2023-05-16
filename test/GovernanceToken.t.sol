@@ -41,7 +41,7 @@ contract GovernanceTokenTest is Test {
         // Currently usr_minter is not a minter
         // usr_minter mints : expects to fail
         vm.prank(usr_minter);
-        vm.expectRevert();
+        vm.expectRevert(AccessControl.NotMinter.selector);
         token.mint(usr_jane, 100);
 
         // Admin sets usr_minter to minter role
@@ -54,16 +54,16 @@ contract GovernanceTokenTest is Test {
             assertEq(_balanceOf(usr_jane), 200);
 
             // Trying to mint to null
-            vm.expectRevert();
+            vm.expectRevert(GovernanceToken.NullAddress.selector);
             token.mint(address(0), 1);
 
             // Trying to mint a null number of tokens
-            vm.expectRevert();
+            vm.expectRevert(GovernanceToken.NotPositiveAmount.selector);
             token.mint(usr_doe, 0);
 
             // Trying to mint more than available
             uint256 available = token.available_mint();
-            vm.expectRevert();
+            vm.expectRevert(GovernanceToken.AmountExceedsMintable.selector);
             token.mint(usr_doe, available + 1);
 
             // Mint all available to usr_doe
@@ -71,16 +71,17 @@ contract GovernanceTokenTest is Test {
             token.mint(usr_doe, token.available_mint());
 
             // There's no available mints. Revert is expected
-            vm.expectRevert();
+            vm.expectRevert(GovernanceToken.NotAvailableMints.selector);
             token.mint(usr_doe, 10);
         }
         vm.stopPrank();
 
         // Run inflation just to reload available mints
-        vm.expectRevert(); // Because span has not been achieved
+        // Should fail because span has not been achieved
+        vm.expectRevert(GovernanceToken.SpanNotReached.selector);
         token.runInflation(true);
         vm.warp(token.last_tuning_on() + token.tuning_span());
-        token.runInflation(true); // Now it will not revert
+        token.runInflation(true); // Now it should not revert
 
         // Verify if mints are in **token units**
         token.mint(usr_nate, 156);
