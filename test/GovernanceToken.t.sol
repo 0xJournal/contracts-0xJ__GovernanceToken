@@ -2,7 +2,8 @@
 pragma solidity ^0.8.18;
 
 import "forge-std/Test.sol";
-import "../src/GovernanceToken.sol";
+import {GovernanceToken} from "../src/GovernanceToken.sol";
+import {AccessControl} from "../src/AccessControl.sol";
 
 contract GovernanceTokenTest is Test {
     GovernanceToken public token;
@@ -28,6 +29,8 @@ contract GovernanceTokenTest is Test {
     function _balanceOf(address account) public view returns (uint256) {
         return token.balanceOf(account) / (10**token.decimals());
     }
+
+    event Mint(address indexed to, uint256 amount);
 
     function testMint() public {
         // Admin mints
@@ -87,6 +90,19 @@ contract GovernanceTokenTest is Test {
         uint256 curr_av = token.available_mint();
         token.mint(usr_nate, 2564);
         assertEq(curr_av - 2564, token.available_mint());
+
+        // Verify if the minted amount is added to the user balance
+        uint256 balance_before = _balanceOf(usr_jane);
+        token.mint(usr_jane, 345);
+        assertEq(_balanceOf(usr_jane), balance_before + 345);
+
+        // Test the event emission from a mint
+        // - Tell Foundry which data to check
+        // - Emit the expected event
+        // - Call the function that should emit the event
+        vm.expectEmit(true, true, true, true);
+        emit Mint(usr_jane, 100);
+        token.mint(usr_jane, 100);
     }
 
     /* 
@@ -95,8 +111,58 @@ contract GovernanceTokenTest is Test {
     ===========================================================================
     */
 
+    event Burn(address indexed from, uint256 amount);
+
     function testBurn() public {
-        assertEq(true, true);
+        // User usr_burner is not assigned as burner yet
+        vm.expectRevert(AccessControl.NotBurner.selector);
+        vm.prank(usr_burner);
+        token.burn(200);
+
+        // Now assigning usr_burner the burner role
+        {
+            token.setBurner(usr_burner, true);
+            vm.prank(usr_burner);
+
+            // Should fail if we try to burn zero tokens
+            vm.expectRevert(GovernanceToken.NotPositiveAmount.selector);
+            token.burn(0);
+
+            // Should fail beccause usr_burn does not have tokens
+            vm.prank(usr_burner);
+            vm.expectRevert(GovernanceToken.AmountExceedsBurnable.selector);
+            token.burn(200);
+
+            // Now the sender will give a few tokens to usr_burner, but
+            // this one will try to burn more than has
+            token.mint(usr_burner, 150);
+            vm.prank(usr_burner);
+            vm.expectRevert(GovernanceToken.AmountExceedsBurnable.selector);
+            token.burn(200);
+
+            // Now will try to burn less than usr_burner has, so it should
+            // not fail. Also, verify if the new balance is deducted from
+            // the burned amount.
+            uint256 balance_before = _balanceOf(usr_burner);
+            vm.prank(usr_burner);
+            token.burn(120);
+            assertEq(balance_before - 120, _balanceOf(usr_burner));
+        }
+
+        // Now we will verify if max_supply is deducted from the burned amount
+        uint256 max_supply__before = token.max_supply();
+        vm.prank(usr_burner);
+        token.burn(25);
+        assertEq(token.max_supply(), max_supply__before - 25);
+
+        // Test the event emission from a burn
+        // - Tell Foundry which data to check
+        // - Emit the expected event
+        // - Call the function that should emit the event
+        vm.expectEmit(true, true, true, true);
+        emit Burn(usr_burner, 5);
+        vm.prank(usr_burner);
+        token.burn(5);
     }
 
     /* 
@@ -118,5 +184,4 @@ contract GovernanceTokenTest is Test {
     function testTuneInflation() public {
         assertEq(true, true);
     }
-
 }

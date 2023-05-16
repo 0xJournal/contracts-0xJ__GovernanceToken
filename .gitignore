@@ -11,3 +11,5 @@
 /bin
 /src/_archive
 /.archive
+/src/.prettierrc.json
+/src/artifacts

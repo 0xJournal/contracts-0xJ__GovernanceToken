@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-error NotAdmin();
-error NotMinter();
-error NotBurner();
-
 abstract contract AccessControl {
+    error NotAdmin();
+    error NotMinter();
+    error NotBurner();
+
     mapping(address => bool) internal admins;
     mapping(address => bool) internal burners;
     mapping(address => bool) internal minters;

@@ -40,30 +40,31 @@ pragma solidity ^0.8.18;
 import "./OpenZeppelin-Deps_flattened.sol";
 import "./AccessControl.sol";
 
-/// Errors at runInflation()
-error StillAvailableMints(); /// There is still available mints to be made before allowing to run inflation.
-error MaxSupplyIsCapped(); /// Max supply already on max limit.
-error SpanNotReached(); /// Span for mint params redefinition has not been reached yet.
-error InflationTuningActive(); /// Inflation changes are already active.
-
-/// Erros at tuneInflation()
-error InflationTuningNotActive(); /// Changes on inflation are only allowed after an inflation round.
-error SpanUnlimited(); /// Span limits exceeds.
-error RateUnlimited(); /// Max inflation rate exceeded.
-
-/// Errors at mint() and burn()
-error NullAddress(); /// Null address.
-error NotPositiveAmount(); /// Amount not positive.
-error NotAvailableMints(); /// Not available mintable tokens.
-error AmountExceedsMintable(); /// Amount surpasses available mintable.
-error AmountExceedsBurnable(); /// Not enough tokens to burn this amount.
-
 /**
  * @title GovernanceToken
  * @custom:version 0.5
  * @custom:security-contact support@0xjournal.com
  */
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
+    
+    /// Errors at runInflation()
+    error StillAvailableMints(); /// There is still available mints to be made before allowing to run inflation.
+    error MaxSupplyIsCapped(); /// Max supply already on max limit.
+    error SpanNotReached(); /// Span for mint params redefinition has not been reached yet.
+    error InflationTuningActive(); /// Inflation changes are already active.
+
+    /// Erros at tuneInflation()
+    error InflationTuningNotActive(); /// Changes on inflation are only allowed after an inflation round.
+    error SpanUnlimited(); /// Span limits exceeds.
+    error RateUnlimited(); /// Max inflation rate exceeded.
+
+    /// Errors at mint() and burn()
+    error NullAddress(); /// Null address.
+    error NotPositiveAmount(); /// Amount not positive.
+    error NotAvailableMints(); /// Not available mintable tokens.
+    error AmountExceedsMintable(); /// Amount surpasses available mintable.
+    error AmountExceedsBurnable(); /// Not enough tokens to burn this amount.
+
     uint256 public constant MAX_CAP = 500_000_000; /// Limit of max supply. In units of token (no decimals)
     uint256 public max_supply = 220_000_000; /// Max supply. In units of token (no decimals)
     uint256 public available_mint = 220_000_000; /// Current available number of tokens to be minted until reaching max supply. In units of token (no decimals)
@@ -158,7 +159,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         requireAdmin
     {
         if (!inflation_tuning_active) revert InflationTuningNotActive();
-        if (!(newSpan >= SPAN_MIN && newSpan <= SPAN_MAX)) revert SpanUnlimited();
+        if (!(newSpan >= SPAN_MIN && newSpan <= SPAN_MAX))
+            revert SpanUnlimited();
         if (!(newRatePct <= MAX_RATE)) revert RateUnlimited();
 
         inflation_rate = newRatePct;
@@ -189,12 +191,11 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         address to,
         uint256 amount /*in units of token (no decimals*/
     ) public requireMinter {
-
         if (!(to != address(0))) revert NullAddress();
         if (!(amount > 0)) revert NotPositiveAmount();
         if (!(available_mint > 0)) revert NotAvailableMints();
         if (!(amount <= available_mint)) revert AmountExceedsMintable();
-        
+
         assert(available_mint > available_mint - amount);
 
         _mint(to, amount * 10**decimals());
@@ -218,9 +219,10 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
      */
     function burn(uint256 amount) public override requireBurner {
         if (!(amount > 0)) revert NotPositiveAmount();
-        if (!(balanceOf(msg.sender) >= amount * 10**decimals())) revert AmountExceedsBurnable();
+        if (!(balanceOf(msg.sender) >= amount * 10**decimals()))
+            revert AmountExceedsBurnable();
 
-        super.burn(amount);
+        super.burn(amount * (10**decimals()));
 
         max_supply -= amount;
 
