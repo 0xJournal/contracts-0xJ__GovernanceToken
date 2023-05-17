@@ -28,7 +28,7 @@
 - [ok] Natspec : document all functions and variables
 - [ok] Verify code at testnet
 - [ok] Optimize by replacing the require clauses for if/revert/error
-- Include whitebox tests for functions
+- [ok] Include whitebox tests for functions
 - Publish the design, for each function write a mermaid diagram
 - Update the readme doc.
 */
