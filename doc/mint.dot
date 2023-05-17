@@ -11,8 +11,8 @@ digraph {
     checkAvailableMint [label = "Check if there are available mintable tokens";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     checkAmountExceedsMintable [label = "Check if amount exceeds available mintable tokens";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     assertStatement [label = "Assert statement";shape = "box";style = "rounded,filled";fillcolor = "gray";];
-    mintTokens [label = "Mint tokens";style = "filled";fillcolor = "#FFDAB9";];
-    decreaseAvailableMint [label = "Decrease available_mint by amount";style = "filled";fillcolor = "#FFDAB9";];
+    mintTokens [label = "Mint tokens";style = "filled";fillcolor = "greenyellow";];
+    decreaseAvailableMint [label = "Decrease available_mint by amount";style = "filled";fillcolor = "greenyellow";];
     emitEvent [label = "Emit Mint event";shape = "box";style = "rounded,filled";fillcolor = "turquoise";];
     end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     

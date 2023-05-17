@@ -1,0 +1,74 @@
+digraph {
+    node [shape = box; style = "rounded, filled"; fillcolor = "#F5F5F5"; fontname = "Arial"; fontsize = 12;];
+    edge [fontname = "Arial"; fontsize = 10;];
+    
+    start [label = "Start";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
+    
+    start -> availableMintCheck;
+    
+    subgraph RunInflation2 {
+        cluster = true;
+        test -> revertNotAdmin;
+    }
+    
+    subgraph RunInflation {
+        cluster = true;
+        revertNotAdmin [label = "NotAdmin";shape = "box";style = "rounded,filled";fillcolor = "red";];
+        
+        availableMintCheck [label = "There is\navailable mint?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+        availableMintCheck -> revertStillAvailableMints [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+        availableMintCheck -> maxSupplyCheck [label = "No"; fontsize = 10;];
+        revertStillAvailableMints [label = "StillAvailableMints";shape = "box";style = "rounded,filled";fillcolor = "red";];
+        revertStillAvailableMints -> end;
+        
+        maxSupplyCheck [label = "Max supply is\n capped to max?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+        maxSupplyCheck -> spanCheck [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+        maxSupplyCheck -> revertMaxSupplyIsCapped [label = "No"; fontsize = 10;];
+        revertMaxSupplyIsCapped [label = "Max Supply Is Capped";shape = "box";style = "rounded,filled";fillcolor = "red";];
+        revertMaxSupplyIsCapped -> end;
+        
+        spanCheck [label = "Span has\nbeen reached";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+        spanCheck -> enableCheck [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+        spanCheck -> revertSpanNotReached [label = "No"; fontsize = 10;];
+        revertSpanNotReached [label = "Span Not Reached";shape = "box";style = "rounded,filled";fillcolor = "red";];
+        revertSpanNotReached -> end;
+        
+        enableCheck [label = "Inflation \nenable?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+        enableCheck -> calculateInflation [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+        enableCheck -> end [label = "No"; fontsize = 10; fontcolor = "#808080";];
+        
+        calculateInflation -> lastTuningOn;
+        
+        lastTuningOn [label = "Update \nlast tuning";style = "filled";fillcolor = "greenyellow";];
+        lastTuningOn -> emitInflationRun [label = "Continue"; fontsize = 10; fontcolor = "#808080";];
+        emitInflationRun [label = "Emit InflationRun";shape = "box";style = "rounded,filled";fillcolor = "turquoise";];
+        emitInflationRun -> spanCheck2 [label = "Continue"; fontsize = 10; fontcolor = "#808080";];
+    }
+    
+    
+    
+    
+    
+    // calculateAddSupply [label = "Calculate Add Supply";style = "filled";fillcolor = "#FFDAB9";];
+    // calculateAddSupply -> maxSupplyCheck2 [label = "max_supply + add_supply >= MAX_CAP"; fontsize = 10; fontcolor = "#808080";];
+    // calculateAddSupply -> setMaxSupplyAndAvailableMint [label = "max_supply + add_supply < MAX_CAP"; fontsize = 10; fontcolor = "#808080";];
+    // setMaxSupplyAndAvailableMint [label = "Set max_supply and available_mint";style = "filled";fillcolor = "#FFDAB9";];
+    // setMaxSupplyAndAvailableMint -> lastTuningOn [label = "Continue"; fontsize = 10; fontcolor = "#808080";];
+    // maxSupplyCheck2 [label = "Max Supply Check 2";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    // maxSupplyCheck2 -> setMaxSupplyAndAvailableMint [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+    // maxSupplyCheck2 -> revertMaxSupplyIsCapped2 [label = "No"; fontsize = 10; fontcolor = "red";];
+    
+    spanCheck2 [label = "Span Check 2";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    spanCheck2 -> rateCheck [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+    spanCheck2 -> revertSpanOfflimited [label = "No"; fontsize = 10; fontcolor = "red";];
+    rateCheck [label = "Rate Check";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    rateCheck -> setInflationRateAndTuningSpan [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+    rateCheck -> revertRateOfflimited [label = "No"; fontsize = 10; fontcolor = "red";];
+    setInflationRateAndTuningSpan [label = "Set inflation_rate and tuning_span";style = "filled";fillcolor = "#FFDAB9";];
+    setInflationRateAndTuningSpan -> emitInflationTuned [label = "Continue"; fontsize = 10; fontcolor = "#808080";];
+    emitInflationTuned [label = "Emit InflationTuned";shape = "box";style = "rounded,filled";fillcolor = "turquoise";];
+    emitInflationTuned -> end [label = "End"; fontsize = 10; fontcolor = "#808080";];
+    
+    revertSpanOfflimited [label = "Span Off Limited";shape = "box";style = "rounded,filled";fillcolor = "red";];
+    revertRateOfflimited [label = "Rate Off Limited";shape = "box";style = "rounded,filled";fillcolor = "red";];
+}

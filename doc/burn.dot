@@ -14,6 +14,7 @@ digraph {
     end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     revertNotPositiveAmount [label = "NotPositiveAmount";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertAmountExceedsBurnable [label = "AmountExceedsBurnable";shape = "box";style = "rounded,filled";fillcolor = "red";];
+    revertNotBurner [label = "revertNotBurner";shape = "box";style = "rounded,filled";fillcolor = "red";];
     
     checkAmount -> checkBalance [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
     checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10; fontcolor = "#808080";];
