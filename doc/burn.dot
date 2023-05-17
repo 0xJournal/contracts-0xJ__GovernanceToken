@@ -1,0 +1,29 @@
+digraph {
+    node [shape = box; style = "rounded, filled"; fillcolor = "#F5F5F5"; fontname = "Arial"; fontsize = 12;];
+    edge [fontname = "Arial"; fontsize = 10;];
+    
+    start [label = "Start";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
+    
+    start -> checkAmount [label = "Call function: burn"; fontsize = 10; fontcolor = "#808080";];
+    
+    checkAmount [label = "Check if amount is non-zero positive";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    checkBalance [label = "Check if caller has enough tokens to burn";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    burnTokens [label = "Burn tokens";style = "filled";fillcolor = "#FFDAB9";];
+    reduceMaxSupply [label = "Reduce max_supply by amount";style = "filled";fillcolor = "#FFDAB9";];
+    emitEvent [label = "Emit Burn event";shape = "box";style = "rounded,filled";fillcolor = "#90EE90";];
+    end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
+    revertNotPositiveAmount [label = "NotPositiveAmount";shape = "box";style = "rounded,filled";fillcolor = "red";];
+    revertAmountExceedsBurnable [label = "AmountExceedsBurnable";shape = "box";style = "rounded,filled";fillcolor = "red";];
+    
+    checkAmount -> checkBalance [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+    checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    revertNotPositiveAmount -> end;
+    
+    checkBalance -> burnTokens [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+    checkBalance -> revertAmountExceedsBurnable [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    revertAmountExceedsBurnable -> end;
+    
+    burnTokens -> reduceMaxSupply [label = "After burning tokens"; fontsize = 10; fontcolor = "#808080";];
+    reduceMaxSupply -> emitEvent [label = "After reducing max_supply"; fontsize = 10; fontcolor = "#808080";];
+    emitEvent -> end [label = "After emitting event"; fontsize = 10; fontcolor = "#808080";];
+}
