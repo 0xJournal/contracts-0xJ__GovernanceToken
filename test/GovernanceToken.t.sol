@@ -30,7 +30,7 @@ contract GovernanceTokenTest is Test {
         return token.balanceOf(account) / (10**token.decimals());
     }
 
-    event Mint(address indexed to, uint256 amount);
+    event Minted(address indexed to, uint256 amount);
 
     function testMint() public {
         // Admin mints
@@ -102,7 +102,7 @@ contract GovernanceTokenTest is Test {
         // - Emit the expected event
         // - Call the function that should emit the event
         vm.expectEmit(true, true, true, true);
-        emit Mint(usr_jane, 100);
+        emit Minted(usr_jane, 100);
         token.mint(usr_jane, 100);
     }
 
@@ -112,7 +112,7 @@ contract GovernanceTokenTest is Test {
     ===========================================================================
     */
 
-    event Burn(address indexed from, uint256 amount);
+    event Burned(address indexed from, uint256 amount);
 
     function testBurn() public {
         // User usr_burner is not assigned as burner yet
@@ -161,7 +161,7 @@ contract GovernanceTokenTest is Test {
         // - Emit the expected event
         // - Call the function that should emit the event
         vm.expectEmit(true, true, true, true);
-        emit Burn(usr_burner, 5);
+        emit Burned(usr_burner, 5);
         vm.prank(usr_burner);
         token.burn(5);
     }

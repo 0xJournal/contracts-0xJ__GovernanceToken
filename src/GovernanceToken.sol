@@ -85,8 +85,8 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         uint256 indexed newInflationRatePct,
         uint256 newAdjustmentSpan
     );
-    event Mint(address indexed to, uint256 amount);
-    event Burn(address indexed from, uint256 amount);
+    event Minted(address indexed to, uint256 amount);
+    event Burned(address indexed from, uint256 amount);
 
     constructor() ERC20("0xJournal", "0xJ") {
         last_tuning_on = block.timestamp;
@@ -201,7 +201,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
         _mint(to, amount * 10**decimals());
         available_mint -= amount;
 
-        emit Mint(to, amount);
+        emit Minted(to, amount);
     }
 
     /**
@@ -226,6 +226,6 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
 
         max_supply -= amount;
 
-        emit Burn(msg.sender, amount);
+        emit Burned(msg.sender, amount);
     }
 }
