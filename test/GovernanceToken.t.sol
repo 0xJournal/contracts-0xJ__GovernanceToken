@@ -79,9 +79,9 @@ contract GovernanceTokenTest is Test {
         // Run inflation just to reload available mints
         // Should fail because span has not been achieved
         vm.expectRevert(GovernanceToken.SpanNotReached.selector);
-        token.runInflation(true);
+        token.runInflation(true, 10, 200 days);
         vm.warp(token.last_tuning_on() + token.tuning_span());
-        token.runInflation(true); // Now it should not revert
+        token.runInflation(true, 10, 200 days); // Now it should not revert
 
         // Verify if mints are in **token units**
         token.mint(usr_nate, 156);
@@ -168,43 +168,90 @@ contract GovernanceTokenTest is Test {
 
     /* 
     ===========================================================================
-    Tests for tuneInflation() function
+    Tests for runInflation() function
     ===========================================================================
     */
 
+    event InflationRun(bool indexed enabled);
     event InflationTuned(
         uint256 indexed newInflationRatePct,
         uint256 newAdjustmentSpan
     );
 
-    function testTuneInflation() public {
+    function testRunInflation_InflationRound() public {
         // If a different user than the admin runs the function it should revert
         vm.prank(usr_doe);
         vm.expectRevert(AccessControl.NotAdmin.selector);
-        token.tuneInflation(10, 20);
+        token.runInflation(true, 10, 200 days);
 
-        // Now it should revert because inflation_tuning_active is not true
-        vm.expectRevert(GovernanceToken.InflationTuningNotActive.selector);
-        token.tuneInflation(10, 20);
+        // It should fail because there are available mints
+        vm.expectRevert(GovernanceToken.StillAvailableMints.selector);
+        token.runInflation(true, 10, 200 days);
 
+        // So we mint everything.
+        // But since the span has not been reached, it should revert.
+        token.mint(usr_jane, token.available_mint());
+        vm.expectRevert(GovernanceToken.SpanNotReached.selector);
+        token.runInflation(true, 10, 200 days);
+
+        // True case.
+        {
+            // First run will fall under !(max_supply + add_supply >= MAX_CAP)
+            vm.warp(token.last_tuning_on() + token.tuning_span());
+            uint256 max_supply = token.max_supply();
+            uint256 add_supply = (max_supply * token.inflation_rate()) / 100;
+            token.runInflation(true, 10, 200 days);
+
+            assertEq(token.available_mint(), add_supply);
+            assertEq(token.max_supply(), max_supply + add_supply);
+
+            // Looping runs to achieve (max_supply + add_supply >= MAX_CAP)
+            uint256 last_max_supply_before_run;
+            for (int256 i = 0; i < 9; i++) {
+                vm.warp(token.last_tuning_on() + token.tuning_span());
+                if (token.available_mint() > 0)
+                    token.mint(usr_jane, token.available_mint());
+                last_max_supply_before_run = token.max_supply();
+                token.runInflation(true, 10, 200 days);
+            }
+            assertEq(
+                token.available_mint(),
+                500_000_000 - last_max_supply_before_run
+            );
+
+            // add_supply = (token.max_supply() * token.inflation_rate()) / 100;
+            // emit log_named_uint("max + add", token.max_supply() + add_supply);
+            // So the next run should fail due to max supply capped
+            vm.warp(token.last_tuning_on() + token.tuning_span());
+            token.mint(usr_jane, token.available_mint());
+            vm.expectRevert(GovernanceToken.MaxSupplyIsCapped.selector);
+            token.runInflation(true, 10, 200 days);
+            assertEq(token.max_supply(), 500_000_000);
+        }
+    }
+
+    function testRunInflation_FalseCaseOnly_AndEvent() public {
+        token.mint(usr_jane, token.available_mint());
+        vm.warp(token.last_tuning_on() + token.tuning_span());
+        token.runInflation(false, 10, 200 days);
+    }
+
+    function testRunInflation_TuningOnly() public {
         // First tuning
         {
-            // Creating conditions to enable inflation_tuning_active
+            // It should fail because span is under MIN_SPAN
             token.mint(usr_jane, token.available_mint());
             vm.warp(token.last_tuning_on() + token.tuning_span());
-            token.runInflation(true);
-
-            // Now it should fail because span is under MIN_SPAN
             vm.expectRevert(GovernanceToken.SpanOfflimited.selector);
-            token.tuneInflation(10, 60 days - 1);
+            token.runInflation(false, 10, 60 days - 1);
 
             // It should fail because span is greater than MAX_SPAN
             vm.expectRevert(GovernanceToken.SpanOfflimited.selector);
-            token.tuneInflation(10, 365 days + 1);
+            token.runInflation(false, 10, 365 days + 1);
 
             // It should fail because rate is is greater than MAX_RATE
             vm.expectRevert(GovernanceToken.RateOfflimited.selector);
-            token.tuneInflation(11, 300 days);
+            token.runInflation(false, 11, 300 days);
 
             // It should proceed now.
             // 1. Test the event emission from InflationTuned
@@ -214,39 +261,16 @@ contract GovernanceTokenTest is Test {
             // 2. Test for the correct assignment of the parameters
             vm.expectEmit(true, true, true, true);
             emit InflationTuned(10, 200 days);
-            token.tuneInflation(10, 200 days);
+            token.runInflation(false, 10, 200 days);
             assertEq(token.inflation_rate(), 10);
             assertEq(token.tuning_span(), 200 days);
-
-            // Variable inflation_tuning_active is disabled, so a new attempt
-            // should revert
-            vm.expectRevert(GovernanceToken.InflationTuningNotActive.selector);
-            token.tuneInflation(5, 150 days);
         }
 
         // Second tuning
         {
             // Creating conditions to enable inflation_tuning_active
-            token.mint(usr_jane, token.available_mint());
             vm.warp(token.last_tuning_on() + token.tuning_span());
-            token.runInflation(true);
-
-            token.tuneInflation(5, 150 days);
+            token.runInflation(true, 5, 150 days);
         }
-    }
-
-    /* 
-    ===========================================================================
-    Tests for runInflation() function
-    ===========================================================================
-    */
-
-    event InflationRun(bool indexed enabled);
-
-    function testRunInflation() public {
-        // If a different user than the admin runs the function it should revert
-        vm.prank(usr_doe);
-        vm.expectRevert(AccessControl.NotAdmin.selector);
-        token.runInflation(true);
     }
 }

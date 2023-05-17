@@ -46,15 +46,10 @@ import "./AccessControl.sol";
  * @custom:security-contact support@0xjournal.com
  */
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
-    
     /// Errors at runInflation()
     error StillAvailableMints(); /// There is still available mints to be made before allowing to run inflation.
     error MaxSupplyIsCapped(); /// Max supply already on max limit.
     error SpanNotReached(); /// Span for mint params redefinition has not been reached yet.
-    error InflationTuningActive(); /// Inflation changes are already active.
-
-    /// Erros at tuneInflation()
-    error InflationTuningNotActive(); /// Changes on inflation are only allowed after an inflation round.
     error SpanOfflimited(); /// Span limits exceeds.
     error RateOfflimited(); /// Max inflation rate exceeded.
 
@@ -70,8 +65,6 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     uint256 public available_mint = 220_000_000; /// Current available number of tokens to be minted until reaching max supply. In units of token (no decimals)
 
     uint256 public last_tuning_on = 0; /// Keeps the date on the last tuning of inflation parameters
-
-    bool private inflation_tuning_active = false;
 
     uint256 private constant SPAN_MIN = 60 days; /// Min span period is 2 months
     uint256 private constant SPAN_MAX = 365 days; /// Max span period is 1 year
@@ -93,81 +86,68 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     }
 
     /**
-     * @notice Allows the admin to run inflation by adjusting the minting parameters.
+     * @notice Allows the admin to run inflation by adjusting the minting parameters. ]
+     * @notice Also modifies rate and span for the next inflation round.
      * @param enable A boolean value indicating whether to run inflation or not.
-     *
+     * @param newRatePct The new inflation rate as a percentage. Must be less than or equal to MAX_RATE.
+     * @param newSpan The new span for mint parameter redefinition, in seconds. Must be between SPAN_MIN and SPAN_MAX.
+
      * Requirements :
      * - This function can only be called by the admin.
      * - This function can only be called if there are no available mints left.
      * - This function can only be called if the maximum supply has not yet reached the maximum cap.
      * - This function can only be called if the span for mint parameter redefinition has been reached.
      * - This function can only be called if inflation tuning is already active.
+     * - The new span must be between SPAN_MIN and SPAN_MAX.
+     * - The new inflation rate must be less than or equal to MAX_RATE.
      *
      * Logics :
      * - If `enable` is true, the function will calculate the additional supply based on the inflation rate, and adjust the available mints and maximum supply accordingly. If the sum of the maximum supply and additional supply is greater than or equal to the maximum cap, the available mints and maximum supply will be set to the maximum cap. Otherwise, the available mints will be set to the additional supply, and the maximum supply will be increased by the additional supply. The inflation tuning flag will be set to true.
      * - If `enable` is false, the inflation tuning flag will be set to true (and no change will be made in current inflation params for the current period).
      * - This function will emit an `InflationRun` event.
      * - Throws an error if any of the above conditions are not met.
-     */
-    function runInflation(bool enable) public requireAdmin {
-        if (!(available_mint == 0)) revert StillAvailableMints();
-        if (!(max_supply <= MAX_CAP)) revert MaxSupplyIsCapped();
-
-        uint256 timenow = block.timestamp;
-        uint256 duration = timenow - last_tuning_on;
-        if (!(duration >= tuning_span)) revert SpanNotReached();
-
-        // Inflation tuning is already active : this means that r
-        // unInflation() has been already run once at this period.
-        if (inflation_tuning_active) revert InflationTuningActive();
-
-        if (enable) {
-            uint256 add_supply = (max_supply * inflation_rate) / 100;
-            if (max_supply + add_supply >= MAX_CAP) {
-                available_mint = MAX_CAP - max_supply;
-                max_supply = MAX_CAP;
-            } else {
-                available_mint = add_supply;
-                max_supply += add_supply;
-                inflation_tuning_active = true;
-            }
-        } else {
-            inflation_tuning_active = true;
-        }
-
-        last_tuning_on = timenow;
-        emit InflationRun(enable);
-    }
-
-    /**
-     * @notice Set the inflation parameters for the next inflation round.
-     * @param newRatePct The new inflation rate as a percentage. Must be less than or equal to MAX_RATE.
-     * @param newSpan The new span for mint parameter redefinition, in seconds. Must be between SPAN_MIN and SPAN_MAX.
-     *
-     * Requirements:
-     * - The function must be called by an admin.
-     * - The inflation parameters must be tunable (i.e. an inflation round must have occurred).
-     * - The new span must be between SPAN_MIN and SPAN_MAX.
-     * - The new inflation rate must be less than or equal to MAX_RATE.
-     *
-     * Logics :
-     * - Updates the inflation parameters
+     * - Emits an {InflationRun} event about the inflation round executed.
      * - Emits an {InflationTuned} event with the new inflation rate and span.
      */
-    function tuneInflation(uint256 newRatePct, uint256 newSpan)
-        public
-        requireAdmin
-    {
-        if (!inflation_tuning_active) revert InflationTuningNotActive();
-        if (!(newSpan >= SPAN_MIN && newSpan <= SPAN_MAX))
-            revert SpanOfflimited();
-        if (!(newRatePct <= MAX_RATE)) revert RateOfflimited();
+    function runInflation(
+        bool enable,
+        uint256 newRatePct,
+        uint256 newSpan
+    ) public requireAdmin {
+        // Inflation run
+        {
+            if (!(available_mint == 0)) revert StillAvailableMints();
+            if (max_supply >= MAX_CAP) revert MaxSupplyIsCapped();
 
-        inflation_rate = newRatePct;
-        tuning_span = newSpan;
-        emit InflationTuned(inflation_rate, tuning_span);
+            uint256 timenow = block.timestamp;
+            uint256 duration = timenow - last_tuning_on;
+            if (!(duration >= tuning_span)) revert SpanNotReached();
 
-        inflation_tuning_active = false;
+            if (enable) {
+                uint256 add_supply = (max_supply * inflation_rate) / 100;
+                if (max_supply + add_supply >= MAX_CAP) {
+                    available_mint = MAX_CAP - max_supply;
+                    max_supply = MAX_CAP;
+                } else {
+                    available_mint = add_supply;
+                    max_supply += add_supply;
+                }
+            }
+
+            last_tuning_on = timenow;
+            emit InflationRun(enable);
+        }
+
+        // Inflation tuning for the next period
+        {
+            if (!(newSpan >= SPAN_MIN && newSpan <= SPAN_MAX))
+                revert SpanOfflimited();
+            if (!(newRatePct <= MAX_RATE)) revert RateOfflimited();
+
+            inflation_rate = newRatePct;
+            tuning_span = newSpan;
+            emit InflationTuned(inflation_rate, tuning_span);
+        }
     }
 
     /**
