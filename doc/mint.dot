@@ -4,8 +4,14 @@ digraph {
     
     start [label = "Start";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     
-    start -> checkTo [label = "Call function: mint"; fontsize = 10; fontcolor = "#808080";];
+    start -> minterCheck [label = "Call function: mint"; fontsize = 10; fontcolor = "#808080";];
     
+	minterCheck [label = "Admin?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+	minterCheck -> checkTo [label = "Yes"; fontsize = 10;];
+	minterCheck -> revertNotMinter [label = "No"; fontsize = 10;];
+    revertNotMinter [label = "NotMinter";shape = "box";style = "rounded,filled";fillcolor = "red";];
+	revertNotMinter -> end;
+
     checkTo [label = "Check if 'to' address is not null";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     checkAmount [label = "Check if amount is greater than 0";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     checkAvailableMint [label = "Check if there are available mintable tokens";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
@@ -16,7 +22,6 @@ digraph {
     emitEvent [label = "Emit Mint event";shape = "box";style = "rounded,filled";fillcolor = "turquoise";];
     end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     
-    revertNotMinter [label = "NotMinter";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertNullAddress [label = "NullAddress";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertNotPositiveAmount [label = "NotPositiveAmount";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertNotAvailableMints [label = "NotAvailableMints";shape = "box";style = "rounded,filled";fillcolor = "red";];

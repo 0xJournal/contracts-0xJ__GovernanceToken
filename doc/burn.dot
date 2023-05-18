@@ -4,8 +4,14 @@ digraph {
     
     start [label = "Start";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     
-    start -> checkAmount [label = "Call function: burn"; fontsize = 10; fontcolor = "#808080";];
+    start -> burnerCheck [label = "Call function: burn"; fontsize = 10; fontcolor = "#808080";];
     
+	burnerCheck [label = "Burner?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+	burnerCheck -> checkAmount [label = "Yes"; fontsize = 10;];
+	burnerCheck -> revertNotBurner [label = "No"; fontsize = 10;];
+    revertNotBurner [label = "NotBurner";shape = "box";style = "rounded,filled";fillcolor = "red";];
+	revertNotBurner -> end;
+
     checkAmount [label = "Check if amount is non-zero positive";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     checkBalance [label = "Check if caller has enough tokens to burn";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     burnTokens [label = "Burn tokens";style = "filled";fillcolor = "#FFDAB9";];
@@ -14,7 +20,7 @@ digraph {
     end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     revertNotPositiveAmount [label = "NotPositiveAmount";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertAmountExceedsBurnable [label = "AmountExceedsBurnable";shape = "box";style = "rounded,filled";fillcolor = "red";];
-    revertNotBurner [label = "revertNotBurner";shape = "box";style = "rounded,filled";fillcolor = "red";];
+
     
     checkAmount -> checkBalance [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
     checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10; fontcolor = "#808080";];
