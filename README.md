@@ -58,9 +58,7 @@ The `GovernanceToken` contract represents a token contract that implements the E
    - Mints new tokens and assigns them to the specified address.
    - Requirements:
      - The caller must be a minter of the contract.
-     - The address `to` must not be the
-
- null address.
+     - The address `to` must not be the null address.
      - The `amount` must be greater than 0.
      - There must be available mintable tokens to mint.
      - The `amount` being minted must not exceed the available mintable tokens.
