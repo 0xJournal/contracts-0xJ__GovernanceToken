@@ -31,7 +31,7 @@ import "./AccessControl.sol";
 
 /**
  * @title GovernanceToken
- * @custom:version 1.0
+ * @custom:version 1.1
  * @custom:security-contact support@0xjournal.com
  */
 contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
@@ -49,7 +49,7 @@ contract GovernanceToken is ERC20, ERC20Burnable, AccessControl {
     error AmountExceedsMintable(); /// Amount surpasses available mintable.
     error AmountExceedsBurnable(); /// Not enough tokens to burn this amount.
 
-    uint256 public constant MAX_CAP = 500_000_000; /// Limit of max supply. In units of token (no decimals)
+    uint256 private constant MAX_CAP = 500_000_000; /// Limit of max supply. In units of token (no decimals)
     uint256 public max_supply = 220_000_000; /// Max supply. In units of token (no decimals)
     uint256 public available_mint = 220_000_000; /// Current available number of tokens to be minted until reaching max supply. In units of token (no decimals)
 
