@@ -4,7 +4,7 @@ digraph {
     
     start [label = "Start";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     
-    start -> burnerCheck [label = "Call function: burn"; fontsize = 10; fontcolor = "#808080";];
+    start -> burnerCheck;
     
 	burnerCheck [label = "Burner?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
 	burnerCheck -> checkAmount [label = "Yes"; fontsize = 10;];
@@ -12,25 +12,25 @@ digraph {
     revertNotBurner [label = "NotBurner";shape = "box";style = "rounded,filled";fillcolor = "red";];
 	revertNotBurner -> end;
 
-    checkAmount [label = "Check if amount is non-zero positive";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
-    checkBalance [label = "Check if caller has enough tokens to burn";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
-    burnTokens [label = "Burn tokens";style = "filled";fillcolor = "#FFDAB9";];
-    reduceMaxSupply [label = "Reduce max_supply by amount";style = "filled";fillcolor = "#FFDAB9";];
+    checkAmount [label = "Amount is \nnon-zero positive?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    checkBalance [label = "Caller has enough \ntokens to burn?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    burnTokens [label = "Burn tokens";style = "filled";fillcolor = "greenyellow";];
+    reduceMaxSupply [label = "Reduce max supply\nby amount";style = "filled";fillcolor = "greenyellow";];
     emitEvent [label = "Emit Burn event";shape = "box";style = "rounded,filled";fillcolor = "turquoise";];
     end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     revertNotPositiveAmount [label = "NotPositiveAmount";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertAmountExceedsBurnable [label = "AmountExceedsBurnable";shape = "box";style = "rounded,filled";fillcolor = "red";];
 
     
-    checkAmount -> checkBalance [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
-    checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    checkAmount -> checkBalance [label = "Yes"; fontsize = 10;];
+    checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10;];
     revertNotPositiveAmount -> end;
     
-    checkBalance -> burnTokens [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
-    checkBalance -> revertAmountExceedsBurnable [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    checkBalance -> burnTokens [label = "Yes"; fontsize = 10;];
+    checkBalance -> revertAmountExceedsBurnable [label = "No"; fontsize = 10;];
     revertAmountExceedsBurnable -> end;
     
-    burnTokens -> reduceMaxSupply [label = "After burning tokens"; fontsize = 10; fontcolor = "#808080";];
-    reduceMaxSupply -> emitEvent [label = "After reducing max_supply"; fontsize = 10; fontcolor = "#808080";];
-    emitEvent -> end [label = "After emitting event"; fontsize = 10; fontcolor = "#808080";];
+    burnTokens -> reduceMaxSupply;
+    reduceMaxSupply -> emitEvent;
+    emitEvent -> end;
 }

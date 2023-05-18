@@ -4,7 +4,7 @@ digraph {
     
     start [label = "Start";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     
-    start -> minterCheck [label = "Call function: mint"; fontsize = 10; fontcolor = "#808080";];
+    start -> minterCheck [label = "Call function: mint"; fontsize = 10;];
     
 	minterCheck [label = "Admin?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
 	minterCheck -> checkTo [label = "Yes"; fontsize = 10;];
@@ -12,13 +12,13 @@ digraph {
     revertNotMinter [label = "NotMinter";shape = "box";style = "rounded,filled";fillcolor = "red";];
 	revertNotMinter -> end;
 
-    checkTo [label = "Check if 'to' address is not null";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
-    checkAmount [label = "Check if amount is greater than 0";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
-    checkAvailableMint [label = "Check if there are available mintable tokens";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
-    checkAmountExceedsMintable [label = "Check if amount exceeds available mintable tokens";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    checkTo [label = "'to' address is\n not null?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    checkAmount [label = "Amount is \npositive?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    checkAvailableMint [label = "There are available\nmintable tokens?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
+    checkAmountExceedsMintable [label = "Amount exceeds\navailable mintable tokens?";shape = "diamond";style = "filled";fillcolor = "#FFE4B5";];
     assertStatement [label = "Assert statement";shape = "box";style = "rounded,filled";fillcolor = "gray";];
     mintTokens [label = "Mint tokens";style = "filled";fillcolor = "greenyellow";];
-    decreaseAvailableMint [label = "Decrease available_mint by amount";style = "filled";fillcolor = "greenyellow";];
+    decreaseAvailableMint [label = "Decrease available mint\n by amount";style = "filled";fillcolor = "greenyellow";];
     emitEvent [label = "Emit Mint event";shape = "box";style = "rounded,filled";fillcolor = "turquoise";];
     end [label = "End";shape = "ellipse";style = "filled";fillcolor = "#90EE90";];
     
@@ -27,26 +27,26 @@ digraph {
     revertNotAvailableMints [label = "NotAvailableMints";shape = "box";style = "rounded,filled";fillcolor = "red";];
     revertAmountExceedsMintable [label = "AmountExceedsMintable";shape = "box";style = "rounded,filled";fillcolor = "red";];
     
-    checkTo -> checkAmount [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
-    checkTo -> revertNullAddress [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    checkTo -> checkAmount [label = "Yes"; fontsize = 10;];
+    checkTo -> revertNullAddress [label = "No"; fontsize = 10;];
     revertNullAddress -> end;
     
-    checkAmount -> checkAvailableMint [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
-    checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    checkAmount -> checkAvailableMint [label = "Yes"; fontsize = 10;];
+    checkAmount -> revertNotPositiveAmount [label = "No"; fontsize = 10;];
     revertNotPositiveAmount -> end;
     
-    checkAvailableMint -> checkAmountExceedsMintable [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
-    checkAvailableMint -> revertNotAvailableMints [label = "No"; fontsize = 10; fontcolor = "#808080";];
+    checkAvailableMint -> checkAmountExceedsMintable [label = "Yes"; fontsize = 10;];
+    checkAvailableMint -> revertNotAvailableMints [label = "No"; fontsize = 10;];
     revertNotAvailableMints -> end;
     
-    checkAmountExceedsMintable -> revertAmountExceedsMintable [label = "No"; fontsize = 10; fontcolor = "#808080";];
-    checkAmountExceedsMintable -> assertStatement [label = "Yes"; fontsize = 10; fontcolor = "#808080";];
+    checkAmountExceedsMintable -> revertAmountExceedsMintable [label = "No"; fontsize = 10;];
+    checkAmountExceedsMintable -> assertStatement [label = "Yes"; fontsize = 10;];
     revertAmountExceedsMintable -> end;
     
     assertStatement -> mintTokens;
     assertStatement -> end [label = "Assertion Failed"; fontsize = 10; fontcolor = "#FF0000";];
     
-    mintTokens -> decreaseAvailableMint [label = "After minting tokens"; fontsize = 10; fontcolor = "#808080";];
-    decreaseAvailableMint -> emitEvent [label = "After decreasing available_mint"; fontsize = 10; fontcolor = "#808080";];
-    emitEvent -> end [label = "After emitting event"; fontsize = 10; fontcolor = "#808080";];
+    mintTokens -> decreaseAvailableMint;
+    decreaseAvailableMint -> emitEvent;
+    emitEvent -> end;
 }
