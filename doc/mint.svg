@@ -1,0 +1,245 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="582pt" height="1122pt" viewBox="0.00 0.00 582.43 1122.20">
+<g id="graph0" class="graph" transform="translate(4,1118.199951171875) scale(1)" data-name="">
+<polygon fill="white" stroke="none" points="-4,4 -4,-1118.2 578.43,-1118.2 578.43,4 -4,4" style=""/>
+<!-- start -->
+<g id="node1" class="node" pointer-events="visible" data-name="start">
+
+<ellipse fill="#90ee90" stroke="black" cx="482.42" cy="-1096.2" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="482.42" y="-1092.6" font-family="Arial" font-size="12.00" style="">Start</text>
+</g>
+<!-- minterCheck -->
+<g id="node2" class="node" pointer-events="visible" data-name="minterCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="482.42,-1030.2 431.01,-1012.2 482.42,-994.2 533.83,-1012.2 482.42,-1030.2" style=""/>
+<text text-anchor="middle" x="482.42" y="-1008.6" font-family="Arial" font-size="12.00" style="">Admin?</text>
+</g>
+<!-- start&#45;&gt;minterCheck -->
+<g id="edge1" class="edge" data-name="start-&gt;minterCheck">
+
+<path fill="none" stroke="black" d="M482.42,-1077.81C482.42,-1067.37 482.42,-1053.84 482.42,-1041.86" style=""/>
+<polygon fill="black" stroke="black" points="485.92,-1042.08 482.42,-1032.08 478.92,-1042.08 485.92,-1042.08" style=""/>
+<text text-anchor="middle" x="522.16" y="-1051.2" font-family="Arial" font-size="10.00" style="">Call function: mint</text>
+</g>
+<!-- checkTo -->
+<g id="node3" class="node" pointer-events="visible" data-name="checkTo">
+
+<polygon fill="#ffe4b5" stroke="black" points="423.42,-946 334.69,-909.4 423.42,-872.8 512.15,-909.4 423.42,-946" style=""/>
+<text text-anchor="middle" x="423.42" y="-913" font-family="Arial" font-size="12.00" style="">'to' address is</text>
+<text text-anchor="middle" x="423.42" y="-898.6" font-family="Arial" font-size="12.00" style=""> not null?</text>
+</g>
+<!-- minterCheck&#45;&gt;checkTo -->
+<g id="edge2" class="edge" data-name="minterCheck-&gt;checkTo">
+
+<path fill="none" stroke="black" d="M473.97,-996.76C466.67,-984.29 455.79,-965.69 445.98,-948.95" style=""/>
+<polygon fill="black" stroke="black" points="449.21,-947.53 441.14,-940.67 443.17,-951.07 449.21,-947.53" style=""/>
+<text text-anchor="middle" x="470.04" y="-967.2" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNotMinter -->
+<g id="node4" class="node" pointer-events="visible" data-name="revertNotMinter">
+
+<path fill="red" stroke="black" d="M562.44,-854.6C562.44,-854.6 518.41,-854.6 518.41,-854.6 512.41,-854.6 506.41,-848.6 506.41,-842.6 506.41,-842.6 506.41,-830.6 506.41,-830.6 506.41,-824.6 512.41,-818.6 518.41,-818.6 518.41,-818.6 562.44,-818.6 562.44,-818.6 568.44,-818.6 574.44,-824.6 574.44,-830.6 574.44,-830.6 574.44,-842.6 574.44,-842.6 574.44,-848.6 568.44,-854.6 562.44,-854.6" style=""/>
+<text text-anchor="middle" x="540.42" y="-833" font-family="Arial" font-size="12.00" style="">NotMinter</text>
+</g>
+<!-- minterCheck&#45;&gt;revertNotMinter -->
+<g id="edge3" class="edge" data-name="minterCheck-&gt;revertNotMinter">
+
+<path fill="none" stroke="black" d="M492.69,-997.51C501.67,-984.85 514.34,-965.19 521.42,-946.2 531.12,-920.17 535.93,-888.75 538.28,-866.42" style=""/>
+<polygon fill="black" stroke="black" points="541.75,-866.83 539.2,-856.55 534.78,-866.18 541.75,-866.83" style=""/>
+<text text-anchor="middle" x="518.81" y="-967.2" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- checkAmount -->
+<g id="node6" class="node" pointer-events="visible" data-name="checkAmount">
+
+<polygon fill="#ffe4b5" stroke="black" points="384.42,-800.4 311.54,-763.8 384.42,-727.2 457.3,-763.8 384.42,-800.4" style=""/>
+<text text-anchor="middle" x="384.42" y="-767.4" font-family="Arial" font-size="12.00" style="">Amount is </text>
+<text text-anchor="middle" x="384.42" y="-753" font-family="Arial" font-size="12.00" style="">positive?</text>
+</g>
+<!-- checkTo&#45;&gt;checkAmount -->
+<g id="edge5" class="edge" data-name="checkTo-&gt;checkAmount">
+
+<path fill="none" stroke="black" d="M414.67,-876.17C409.16,-855.89 401.99,-829.49 396.01,-807.48" style=""/>
+<polygon fill="black" stroke="black" points="399.41,-806.62 393.41,-797.89 392.65,-808.45 399.41,-806.62" style=""/>
+<text text-anchor="middle" x="417.04" y="-833.6" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNullAddress -->
+<g id="node13" class="node" pointer-events="visible" data-name="revertNullAddress">
+
+<path fill="red" stroke="black" d="M513.62,-709C513.62,-709 457.23,-709 457.23,-709 451.23,-709 445.23,-703 445.23,-697 445.23,-697 445.23,-685 445.23,-685 445.23,-679 451.23,-673 457.23,-673 457.23,-673 513.62,-673 513.62,-673 519.62,-673 525.62,-679 525.62,-685 525.62,-685 525.62,-697 525.62,-697 525.62,-703 519.62,-709 513.62,-709" style=""/>
+<text text-anchor="middle" x="485.42" y="-687.4" font-family="Arial" font-size="12.00" style="">NullAddress</text>
+</g>
+<!-- checkTo&#45;&gt;revertNullAddress -->
+<g id="edge6" class="edge" data-name="checkTo-&gt;revertNullAddress">
+
+<path fill="none" stroke="black" d="M437.37,-878.32C446.76,-857.01 458.78,-827.54 466.42,-800.6 474,-773.88 479.09,-742.55 482.08,-720.43" style=""/>
+<polygon fill="black" stroke="black" points="485.53,-721.04 483.34,-710.68 478.59,-720.15 485.53,-721.04" style=""/>
+<text text-anchor="middle" x="465.81" y="-833.6" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- end -->
+<g id="node5" class="node" pointer-events="visible" data-name="end">
+
+<ellipse fill="#90ee90" stroke="black" cx="381.42" cy="-18" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="381.42" y="-14.4" font-family="Arial" font-size="12.00" style="">End</text>
+</g>
+<!-- revertNotMinter&#45;&gt;end -->
+<g id="edge4" class="edge" data-name="revertNotMinter-&gt;end">
+
+<path fill="none" stroke="black" d="M540.42,-818.36C540.42,-791.4 540.42,-737.62 540.42,-692 540.42,-692 540.42,-692 540.42,-90 540.42,-37.47 467.16,-23.54 420.1,-20.01" style=""/>
+<polygon fill="black" stroke="black" points="420.46,-16.53 410.27,-19.41 420.03,-23.51 420.46,-16.53" style=""/>
+</g>
+<!-- checkAvailableMint -->
+<g id="node7" class="node" pointer-events="visible" data-name="checkAvailableMint">
+
+<polygon fill="#ffe4b5" stroke="black" points="272.42,-654.8 153.47,-618.2 272.42,-581.6 391.38,-618.2 272.42,-654.8" style=""/>
+<text text-anchor="middle" x="272.42" y="-621.8" font-family="Arial" font-size="12.00" style="">There are available</text>
+<text text-anchor="middle" x="272.42" y="-607.4" font-family="Arial" font-size="12.00" style="">mintable tokens?</text>
+</g>
+<!-- checkAmount&#45;&gt;checkAvailableMint -->
+<g id="edge8" class="edge" data-name="checkAmount-&gt;checkAvailableMint">
+
+<path fill="none" stroke="black" d="M364.4,-737.13C347.03,-714.85 321.64,-682.31 301.94,-657.05" style=""/>
+<polygon fill="black" stroke="black" points="304.81,-655.03 295.9,-649.3 299.29,-659.34 304.81,-655.03" style=""/>
+<text text-anchor="middle" x="350.04" y="-688" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNotPositiveAmount -->
+<g id="node14" class="node" pointer-events="visible" data-name="revertNotPositiveAmount">
+
+<path fill="red" stroke="black" d="M466.47,-563.4C466.47,-563.4 372.37,-563.4 372.37,-563.4 366.37,-563.4 360.37,-557.4 360.37,-551.4 360.37,-551.4 360.37,-539.4 360.37,-539.4 360.37,-533.4 366.37,-527.4 372.37,-527.4 372.37,-527.4 466.47,-527.4 466.47,-527.4 472.47,-527.4 478.47,-533.4 478.47,-539.4 478.47,-539.4 478.47,-551.4 478.47,-551.4 478.47,-557.4 472.47,-563.4 466.47,-563.4" style=""/>
+<text text-anchor="middle" x="419.42" y="-541.8" font-family="Arial" font-size="12.00" style="">NotPositiveAmount</text>
+</g>
+<!-- checkAmount&#45;&gt;revertNotPositiveAmount -->
+<g id="edge9" class="edge" data-name="checkAmount-&gt;revertNotPositiveAmount">
+
+<path fill="none" stroke="black" d="M389.81,-729.46C396.66,-687.13 408.36,-614.81 414.81,-574.92" style=""/>
+<polygon fill="black" stroke="black" points="418.25,-575.57 416.39,-565.14 411.34,-574.45 418.25,-575.57" style=""/>
+<text text-anchor="middle" x="404.81" y="-688" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- checkAmountExceedsMintable -->
+<g id="node8" class="node" pointer-events="visible" data-name="checkAmountExceedsMintable">
+
+<polygon fill="#ffe4b5" stroke="black" points="157.42,-509.2 0.08,-472.6 157.42,-436 314.77,-472.6 157.42,-509.2" style=""/>
+<text text-anchor="middle" x="157.42" y="-476.2" font-family="Arial" font-size="12.00" style="">Amount exceeds</text>
+<text text-anchor="middle" x="157.42" y="-461.8" font-family="Arial" font-size="12.00" style="">available mintable tokens?</text>
+</g>
+<!-- checkAvailableMint&#45;&gt;checkAmountExceedsMintable -->
+<g id="edge11" class="edge" data-name="checkAvailableMint-&gt;checkAmountExceedsMintable">
+
+<path fill="none" stroke="black" d="M249.43,-588.49C232.05,-566.79 208,-536.75 188.84,-512.84" style=""/>
+<polygon fill="black" stroke="black" points="191.7,-510.8 182.71,-505.18 186.23,-515.17 191.7,-510.8" style=""/>
+<text text-anchor="middle" x="238.04" y="-542.4" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNotAvailableMints -->
+<g id="node15" class="node" pointer-events="visible" data-name="revertNotAvailableMints">
+
+<path fill="red" stroke="black" d="M389.46,-417.8C389.46,-417.8 301.38,-417.8 301.38,-417.8 295.38,-417.8 289.38,-411.8 289.38,-405.8 289.38,-405.8 289.38,-393.8 289.38,-393.8 289.38,-387.8 295.38,-381.8 301.38,-381.8 301.38,-381.8 389.46,-381.8 389.46,-381.8 395.46,-381.8 401.46,-387.8 401.46,-393.8 401.46,-393.8 401.46,-405.8 401.46,-405.8 401.46,-411.8 395.46,-417.8 389.46,-417.8" style=""/>
+<text text-anchor="middle" x="345.42" y="-396.2" font-family="Arial" font-size="12.00" style="">NotAvailableMints</text>
+</g>
+<!-- checkAvailableMint&#45;&gt;revertNotAvailableMints -->
+<g id="edge12" class="edge" data-name="checkAvailableMint-&gt;revertNotAvailableMints">
+
+<path fill="none" stroke="black" d="M289.44,-586.42C300.5,-565.3 314.48,-536.32 323.42,-509.4 332.23,-482.91 338.12,-451.55 341.57,-429.36" style=""/>
+<polygon fill="black" stroke="black" points="345.02,-429.96 343.02,-419.56 338.1,-428.94 345.02,-429.96" style=""/>
+<text text-anchor="middle" x="321.81" y="-542.4" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- assertStatement -->
+<g id="node9" class="node" pointer-events="visible" data-name="assertStatement">
+
+<path fill="gray" stroke="black" d="M198.46,-363.8C198.46,-363.8 116.39,-363.8 116.39,-363.8 110.39,-363.8 104.39,-357.8 104.39,-351.8 104.39,-351.8 104.39,-339.8 104.39,-339.8 104.39,-333.8 110.39,-327.8 116.39,-327.8 116.39,-327.8 198.46,-327.8 198.46,-327.8 204.46,-327.8 210.46,-333.8 210.46,-339.8 210.46,-339.8 210.46,-351.8 210.46,-351.8 210.46,-357.8 204.46,-363.8 198.46,-363.8" style=""/>
+<text text-anchor="middle" x="157.42" y="-342.2" font-family="Arial" font-size="12.00" style="">Assert statement</text>
+</g>
+<!-- checkAmountExceedsMintable&#45;&gt;assertStatement -->
+<g id="edge15" class="edge" data-name="checkAmountExceedsMintable-&gt;assertStatement">
+
+<path fill="none" stroke="black" d="M157.42,-435.5C157.42,-416.43 157.42,-393.36 157.42,-375.52" style=""/>
+<polygon fill="black" stroke="black" points="160.92,-375.64 157.42,-365.64 153.92,-375.64 160.92,-375.64" style=""/>
+<text text-anchor="middle" x="166.04" y="-396.8" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertAmountExceedsMintable -->
+<g id="node16" class="node" pointer-events="visible" data-name="revertAmountExceedsMintable">
+
+<path fill="red" stroke="black" d="M343.66,-309.8C343.66,-309.8 219.18,-309.8 219.18,-309.8 213.18,-309.8 207.18,-303.8 207.18,-297.8 207.18,-297.8 207.18,-285.8 207.18,-285.8 207.18,-279.8 213.18,-273.8 219.18,-273.8 219.18,-273.8 343.66,-273.8 343.66,-273.8 349.66,-273.8 355.66,-279.8 355.66,-285.8 355.66,-285.8 355.66,-297.8 355.66,-297.8 355.66,-303.8 349.66,-309.8 343.66,-309.8" style=""/>
+<text text-anchor="middle" x="281.42" y="-288.2" font-family="Arial" font-size="12.00" style="">AmountExceedsMintable</text>
+</g>
+<!-- checkAmountExceedsMintable&#45;&gt;revertAmountExceedsMintable -->
+<g id="edge14" class="edge" data-name="checkAmountExceedsMintable-&gt;revertAmountExceedsMintable">
+
+<path fill="none" stroke="black" d="M178.74,-440.86C202.46,-406.66 240.4,-351.94 262.92,-319.48" style=""/>
+<polygon fill="black" stroke="black" points="265.7,-321.62 268.52,-311.4 259.94,-317.63 265.7,-321.62" style=""/>
+<text text-anchor="middle" x="225.81" y="-396.8" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- assertStatement&#45;&gt;end -->
+<g id="edge18" class="edge" data-name="assertStatement-&gt;end">
+
+<path fill="none" stroke="black" d="M134.62,-327.61C112.23,-308.59 81.42,-275.71 81.42,-238.8 81.42,-238.8 81.42,-238.8 81.42,-90 81.42,-36.87 261.83,-23.45 342.84,-20.1" style=""/>
+<polygon fill="black" stroke="black" points="342.9,-23.6 352.76,-19.72 342.63,-16.6 342.9,-23.6" style=""/>
+<text text-anchor="middle" x="117.27" y="-161.4" font-family="Arial" font-size="10.00" fill="#ff0000" style="">Assertion Failed</text>
+</g>
+<!-- mintTokens -->
+<g id="node10" class="node" pointer-events="visible" data-name="mintTokens">
+
+<polygon fill="greenyellow" stroke="black" points="235.28,-255.8 157.56,-255.8 157.56,-219.8 235.28,-219.8 235.28,-255.8" style=""/>
+<text text-anchor="middle" x="196.42" y="-234.2" font-family="Arial" font-size="12.00" style="">Mint tokens</text>
+</g>
+<!-- assertStatement&#45;&gt;mintTokens -->
+<g id="edge17" class="edge" data-name="assertStatement-&gt;mintTokens">
+
+<path fill="none" stroke="black" d="M163.69,-327.77C169.74,-311.33 179,-286.15 186.13,-266.77" style=""/>
+<polygon fill="black" stroke="black" points="189.35,-268.15 189.52,-257.56 182.78,-265.74 189.35,-268.15" style=""/>
+</g>
+<!-- decreaseAvailableMint -->
+<g id="node11" class="node" pointer-events="visible" data-name="decreaseAvailableMint">
+
+<polygon fill="greenyellow" stroke="black" points="315.48,-182.7 171.36,-182.7 171.36,-146.1 315.48,-146.1 315.48,-182.7" style=""/>
+<text text-anchor="middle" x="243.42" y="-168" font-family="Arial" font-size="12.00" style="">Decrease available mint</text>
+<text text-anchor="middle" x="243.42" y="-153.6" font-family="Arial" font-size="12.00" style=""> by amount</text>
+</g>
+<!-- mintTokens&#45;&gt;decreaseAvailableMint -->
+<g id="edge19" class="edge" data-name="mintTokens-&gt;decreaseAvailableMint">
+
+<path fill="none" stroke="black" d="M207.8,-219.52C213.15,-211.39 219.65,-201.52 225.62,-192.44" style=""/>
+<polygon fill="black" stroke="black" points="228.42,-194.56 230.99,-184.29 222.57,-190.71 228.42,-194.56" style=""/>
+</g>
+<!-- emitEvent -->
+<g id="node12" class="node" pointer-events="visible" data-name="emitEvent">
+
+<path fill="turquoise" stroke="black" d="M292.62,-109C292.62,-109 218.23,-109 218.23,-109 212.23,-109 206.23,-103 206.23,-97 206.23,-97 206.23,-85 206.23,-85 206.23,-79 212.23,-73 218.23,-73 218.23,-73 292.62,-73 292.62,-73 298.62,-73 304.62,-79 304.62,-85 304.62,-85 304.62,-97 304.62,-97 304.62,-103 298.62,-109 292.62,-109" style=""/>
+<text text-anchor="middle" x="255.42" y="-87.4" font-family="Arial" font-size="12.00" style="">Emit Mint event</text>
+</g>
+<!-- decreaseAvailableMint&#45;&gt;emitEvent -->
+<g id="edge20" class="edge" data-name="decreaseAvailableMint-&gt;emitEvent">
+
+<path fill="none" stroke="black" d="M246.39,-145.75C247.67,-138.14 249.2,-129.05 250.63,-120.52" style=""/>
+<polygon fill="black" stroke="black" points="254.03,-121.38 252.24,-110.94 247.13,-120.22 254.03,-121.38" style=""/>
+</g>
+<!-- emitEvent&#45;&gt;end -->
+<g id="edge21" class="edge" data-name="emitEvent-&gt;end">
+
+<path fill="none" stroke="black" d="M286.24,-72.63C306.01,-61.5 331.54,-47.11 351.19,-36.04" style=""/>
+<polygon fill="black" stroke="black" points="352.83,-39.13 359.82,-31.17 349.39,-33.03 352.83,-39.13" style=""/>
+</g>
+<!-- revertNullAddress&#45;&gt;end -->
+<g id="edge7" class="edge" data-name="revertNullAddress-&gt;end">
+
+<path fill="none" stroke="black" d="M487,-672.78C489.33,-645.84 493.42,-592.09 493.42,-546.4 493.42,-546.4 493.42,-546.4 493.42,-90 493.42,-53.75 451.06,-35.24 418.44,-26.35" style=""/>
+<polygon fill="black" stroke="black" points="419.42,-22.99 408.87,-23.96 417.72,-29.78 419.42,-22.99" style=""/>
+</g>
+<!-- revertNotPositiveAmount&#45;&gt;end -->
+<g id="edge10" class="edge" data-name="revertNotPositiveAmount-&gt;end">
+
+<path fill="none" stroke="black" d="M419.42,-527.16C419.42,-500.2 419.42,-446.42 419.42,-400.8 419.42,-400.8 419.42,-400.8 419.42,-90 419.42,-72.95 410.8,-56.04 401.77,-43" style=""/>
+<polygon fill="black" stroke="black" points="404.62,-40.97 395.83,-35.06 399.02,-45.16 404.62,-40.97" style=""/>
+</g>
+<!-- revertNotAvailableMints&#45;&gt;end -->
+<g id="edge13" class="edge" data-name="revertNotAvailableMints-&gt;end">
+
+<path fill="none" stroke="black" d="M355.26,-381.41C365.92,-360.9 381.42,-325.45 381.42,-292.8 381.42,-292.8 381.42,-292.8 381.42,-90 381.42,-76.08 381.42,-60.63 381.42,-47.7" style=""/>
+<polygon fill="black" stroke="black" points="384.92,-47.73 381.42,-37.73 377.92,-47.73 384.92,-47.73" style=""/>
+</g>
+<!-- revertAmountExceedsMintable&#45;&gt;end -->
+<g id="edge16" class="edge" data-name="revertAmountExceedsMintable-&gt;end">
+
+<path fill="none" stroke="black" d="M303.11,-273.48C320.99,-257.12 343.42,-230.8 343.42,-201.8 343.42,-201.8 343.42,-201.8 343.42,-90 343.42,-72.95 352.04,-56.04 361.07,-43" style=""/>
+<polygon fill="black" stroke="black" points="363.82,-45.16 367.01,-35.06 358.22,-40.97 363.82,-45.16" style=""/>
+</g>
+</g>
+</svg>

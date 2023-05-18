@@ -1,0 +1,159 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="379pt" height="747pt" viewBox="0.00 0.00 379.08 747.00">
+<g id="graph0" class="graph" transform="translate(4,743) scale(1)" data-name="">
+<polygon fill="white" stroke="none" points="-4,4 -4,-743 375.08,-743 375.08,4 -4,4" style=""/>
+<!-- start -->
+<g id="node1" class="node" pointer-events="visible" data-name="start">
+
+<ellipse fill="#90ee90" stroke="black" cx="264.73" cy="-721" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="264.73" y="-717.4" font-family="Arial" font-size="12.00" style="">Start</text>
+</g>
+<!-- burnerCheck -->
+<g id="node2" class="node" pointer-events="visible" data-name="burnerCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="264.73,-666 211.71,-648 264.73,-630 317.76,-648 264.73,-666" style=""/>
+<text text-anchor="middle" x="264.73" y="-644.4" font-family="Arial" font-size="12.00" style="">Burner?</text>
+</g>
+<!-- start&#45;&gt;burnerCheck -->
+<g id="edge1" class="edge" data-name="start-&gt;burnerCheck">
+
+<path fill="none" stroke="black" d="M264.73,-702.81C264.73,-695.34 264.73,-686.37 264.73,-677.92" style=""/>
+<polygon fill="black" stroke="black" points="268.23,-678.04 264.73,-668.04 261.23,-678.04 268.23,-678.04" style=""/>
+</g>
+<!-- checkAmount -->
+<g id="node3" class="node" pointer-events="visible" data-name="checkAmount">
+
+<polygon fill="#ffe4b5" stroke="black" points="193.73,-581.8 79.62,-545.2 193.73,-508.6 307.85,-545.2 193.73,-581.8" style=""/>
+<text text-anchor="middle" x="193.73" y="-548.8" font-family="Arial" font-size="12.00" style="">Amount is </text>
+<text text-anchor="middle" x="193.73" y="-534.4" font-family="Arial" font-size="12.00" style="">non-zero positive?</text>
+</g>
+<!-- burnerCheck&#45;&gt;checkAmount -->
+<g id="edge2" class="edge" data-name="burnerCheck-&gt;checkAmount">
+
+<path fill="none" stroke="black" d="M254.86,-632.98C246.05,-620.48 232.74,-601.57 220.78,-584.59" style=""/>
+<polygon fill="black" stroke="black" points="223.8,-582.81 215.18,-576.65 218.08,-586.84 223.8,-582.81" style=""/>
+<text text-anchor="middle" x="248.35" y="-603" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNotBurner -->
+<g id="node4" class="node" pointer-events="visible" data-name="revertNotBurner">
+
+<path fill="red" stroke="black" d="M358.93,-490.4C358.93,-490.4 312.54,-490.4 312.54,-490.4 306.54,-490.4 300.54,-484.4 300.54,-478.4 300.54,-478.4 300.54,-466.4 300.54,-466.4 300.54,-460.4 306.54,-454.4 312.54,-454.4 312.54,-454.4 358.93,-454.4 358.93,-454.4 364.93,-454.4 370.93,-460.4 370.93,-466.4 370.93,-466.4 370.93,-478.4 370.93,-478.4 370.93,-484.4 364.93,-490.4 358.93,-490.4" style=""/>
+<text text-anchor="middle" x="335.73" y="-468.8" font-family="Arial" font-size="12.00" style="">NotBurner</text>
+</g>
+<!-- burnerCheck&#45;&gt;revertNotBurner -->
+<g id="edge3" class="edge" data-name="burnerCheck-&gt;revertNotBurner">
+
+<path fill="none" stroke="black" d="M278.09,-634.4C290.18,-622.19 307.46,-602.55 316.73,-582 328.28,-556.42 332.83,-524.51 334.62,-501.91" style=""/>
+<polygon fill="black" stroke="black" points="338.09,-502.44 335.24,-492.24 331.1,-501.99 338.09,-502.44" style=""/>
+<text text-anchor="middle" x="312.13" y="-603" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- checkBalance -->
+<g id="node6" class="node" pointer-events="visible" data-name="checkBalance">
+
+<polygon fill="#ffe4b5" stroke="black" points="116.73,-436.2 -0.23,-399.6 116.73,-363 233.7,-399.6 116.73,-436.2" style=""/>
+<text text-anchor="middle" x="116.73" y="-403.2" font-family="Arial" font-size="12.00" style="">Caller has enough </text>
+<text text-anchor="middle" x="116.73" y="-388.8" font-family="Arial" font-size="12.00" style="">tokens to burn?</text>
+</g>
+<!-- checkAmount&#45;&gt;checkBalance -->
+<g id="edge5" class="edge" data-name="checkAmount-&gt;checkBalance">
+
+<path fill="none" stroke="black" d="M177.22,-513.39C165.95,-492.38 150.91,-464.33 138.64,-441.46" style=""/>
+<polygon fill="black" stroke="black" points="141.75,-439.85 133.94,-432.69 135.58,-443.16 141.75,-439.85" style=""/>
+<text text-anchor="middle" x="173.35" y="-469.4" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNotPositiveAmount -->
+<g id="node10" class="node" pointer-events="visible" data-name="revertNotPositiveAmount">
+
+<path fill="red" stroke="black" d="M308.78,-344.8C308.78,-344.8 214.69,-344.8 214.69,-344.8 208.69,-344.8 202.69,-338.8 202.69,-332.8 202.69,-332.8 202.69,-320.8 202.69,-320.8 202.69,-314.8 208.69,-308.8 214.69,-308.8 214.69,-308.8 308.78,-308.8 308.78,-308.8 314.78,-308.8 320.78,-314.8 320.78,-320.8 320.78,-320.8 320.78,-332.8 320.78,-332.8 320.78,-338.8 314.78,-344.8 308.78,-344.8" style=""/>
+<text text-anchor="middle" x="261.73" y="-323.2" font-family="Arial" font-size="12.00" style="">NotPositiveAmount</text>
+</g>
+<!-- checkAmount&#45;&gt;revertNotPositiveAmount -->
+<g id="edge6" class="edge" data-name="checkAmount-&gt;revertNotPositiveAmount">
+
+<path fill="none" stroke="black" d="M210.26,-513.42C220.97,-492.29 234.41,-463.31 242.73,-436.4 250.94,-409.86 255.95,-378.51 258.75,-356.33" style=""/>
+<polygon fill="black" stroke="black" points="262.21,-356.89 259.9,-346.55 255.25,-356.07 262.21,-356.89" style=""/>
+<text text-anchor="middle" x="242.13" y="-469.4" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- end -->
+<g id="node5" class="node" pointer-events="visible" data-name="end">
+
+<ellipse fill="#90ee90" stroke="black" cx="263.73" cy="-18" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="263.73" y="-14.4" font-family="Arial" font-size="12.00" style="">End</text>
+</g>
+<!-- revertNotBurner&#45;&gt;end -->
+<g id="edge4" class="edge" data-name="revertNotBurner-&gt;end">
+
+<path fill="none" stroke="black" d="M335.73,-454.16C335.73,-427.2 335.73,-373.42 335.73,-327.8 335.73,-327.8 335.73,-327.8 335.73,-90 335.73,-65.63 314.57,-46.82 295.19,-34.7" style=""/>
+<polygon fill="black" stroke="black" points="297.05,-31.73 286.65,-29.73 293.53,-37.78 297.05,-31.73" style=""/>
+</g>
+<!-- burnTokens -->
+<g id="node7" class="node" pointer-events="visible" data-name="burnTokens">
+
+<polygon fill="greenyellow" stroke="black" points="156.77,-290.8 76.7,-290.8 76.7,-254.8 156.77,-254.8 156.77,-290.8" style=""/>
+<text text-anchor="middle" x="116.73" y="-269.2" font-family="Arial" font-size="12.00" style="">Burn tokens</text>
+</g>
+<!-- checkBalance&#45;&gt;burnTokens -->
+<g id="edge8" class="edge" data-name="checkBalance-&gt;burnTokens">
+
+<path fill="none" stroke="black" d="M116.73,-362.5C116.73,-343.43 116.73,-320.36 116.73,-302.52" style=""/>
+<polygon fill="black" stroke="black" points="120.23,-302.64 116.73,-292.64 113.23,-302.64 120.23,-302.64" style=""/>
+<text text-anchor="middle" x="125.35" y="-323.8" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertAmountExceedsBurnable -->
+<g id="node11" class="node" pointer-events="visible" data-name="revertAmountExceedsBurnable">
+
+<path fill="red" stroke="black" d="M259.65,-236.8C259.65,-236.8 131.82,-236.8 131.82,-236.8 125.82,-236.8 119.82,-230.8 119.82,-224.8 119.82,-224.8 119.82,-212.8 119.82,-212.8 119.82,-206.8 125.82,-200.8 131.82,-200.8 131.82,-200.8 259.65,-200.8 259.65,-200.8 265.65,-200.8 271.65,-206.8 271.65,-212.8 271.65,-212.8 271.65,-224.8 271.65,-224.8 271.65,-230.8 265.65,-236.8 259.65,-236.8" style=""/>
+<text text-anchor="middle" x="195.73" y="-215.2" font-family="Arial" font-size="12.00" style="">AmountExceedsBurnable</text>
+</g>
+<!-- checkBalance&#45;&gt;revertAmountExceedsBurnable -->
+<g id="edge9" class="edge" data-name="checkBalance-&gt;revertAmountExceedsBurnable">
+
+<path fill="none" stroke="black" d="M131.32,-367.1C141.19,-345.65 154.43,-316.59 165.73,-290.8 171.99,-276.53 178.76,-260.56 184.28,-247.38" style=""/>
+<polygon fill="black" stroke="black" points="187.38,-249.04 188.01,-238.47 180.92,-246.35 187.38,-249.04" style=""/>
+<text text-anchor="middle" x="164.13" y="-323.8" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- reduceMaxSupply -->
+<g id="node8" class="node" pointer-events="visible" data-name="reduceMaxSupply">
+
+<polygon fill="greenyellow" stroke="black" points="189.62,-182.7 67.85,-182.7 67.85,-146.1 189.62,-146.1 189.62,-182.7" style=""/>
+<text text-anchor="middle" x="128.73" y="-168" font-family="Arial" font-size="12.00" style="">Reduce max supply</text>
+<text text-anchor="middle" x="128.73" y="-153.6" font-family="Arial" font-size="12.00" style="">by amount</text>
+</g>
+<!-- burnTokens&#45;&gt;reduceMaxSupply -->
+<g id="edge11" class="edge" data-name="burnTokens-&gt;reduceMaxSupply">
+
+<path fill="none" stroke="black" d="M116.03,-254.48C115.74,-240.03 115.96,-218.96 118.73,-200.8 119.07,-198.57 119.51,-196.29 120.01,-194.01" style=""/>
+<polygon fill="black" stroke="black" points="123.4,-194.88 122.5,-184.32 116.62,-193.14 123.4,-194.88" style=""/>
+</g>
+<!-- emitEvent -->
+<g id="node9" class="node" pointer-events="visible" data-name="emitEvent">
+
+<path fill="turquoise" stroke="black" d="M175.61,-109C175.61,-109 97.86,-109 97.86,-109 91.86,-109 85.86,-103 85.86,-97 85.86,-97 85.86,-85 85.86,-85 85.86,-79 91.86,-73 97.86,-73 97.86,-73 175.61,-73 175.61,-73 181.61,-73 187.61,-79 187.61,-85 187.61,-85 187.61,-97 187.61,-97 187.61,-103 181.61,-109 175.61,-109" style=""/>
+<text text-anchor="middle" x="136.73" y="-87.4" font-family="Arial" font-size="12.00" style="">Emit Burn event</text>
+</g>
+<!-- reduceMaxSupply&#45;&gt;emitEvent -->
+<g id="edge12" class="edge" data-name="reduceMaxSupply-&gt;emitEvent">
+
+<path fill="none" stroke="black" d="M130.71,-145.75C131.55,-138.23 132.56,-129.25 133.51,-120.82" style=""/>
+<polygon fill="black" stroke="black" points="136.98,-121.28 134.61,-110.95 130.02,-120.5 136.98,-121.28" style=""/>
+</g>
+<!-- emitEvent&#45;&gt;end -->
+<g id="edge13" class="edge" data-name="emitEvent-&gt;end">
+
+<path fill="none" stroke="black" d="M167.8,-72.63C187.85,-61.43 213.78,-46.93 233.63,-35.83" style=""/>
+<polygon fill="black" stroke="black" points="235.33,-38.89 242.35,-30.95 231.92,-32.78 235.33,-38.89" style=""/>
+</g>
+<!-- revertNotPositiveAmount&#45;&gt;end -->
+<g id="edge7" class="edge" data-name="revertNotPositiveAmount-&gt;end">
+
+<path fill="none" stroke="black" d="M268.43,-308.47C275.84,-287.71 286.73,-251.75 286.73,-219.8 286.73,-219.8 286.73,-219.8 286.73,-90 286.73,-74.97 282.01,-58.98 276.84,-45.99" style=""/>
+<polygon fill="black" stroke="black" points="280.07,-44.63 272.9,-36.83 273.64,-47.4 280.07,-44.63" style=""/>
+</g>
+<!-- revertAmountExceedsBurnable&#45;&gt;end -->
+<g id="edge10" class="edge" data-name="revertAmountExceedsBurnable-&gt;end">
+
+<path fill="none" stroke="black" d="M201.65,-200.51C213.46,-165.97 240.07,-88.2 254.31,-46.55" style=""/>
+<polygon fill="black" stroke="black" points="257.56,-47.86 257.49,-37.26 250.94,-45.59 257.56,-47.86" style=""/>
+</g>
+</g>
+</svg>

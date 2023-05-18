@@ -1,0 +1,421 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1151pt" height="1035pt" viewBox="0.00 0.00 1151.00 1035.00">
+<g id="graph0" class="graph" transform="translate(5.97314453125,1031) scale(1)" data-name="">
+<polygon fill="white" stroke="none" points="-4,4 -4,-1031 1147,-1031 1147,4 -4,4" style=""/>
+<g id="clust2" class="cluster" data-name="RunInflation">
+
+<polygon fill="none" stroke="black" points="62,-138 62,-1019 776,-1019 776,-138 62,-138" style=""/>
+<text text-anchor="middle" x="419" y="-1002.4" font-family="Times,serif" font-size="14.00" style="">Run Inflation</text>
+</g>
+<g id="clust3" class="cluster" data-name="ExecuteInflation">
+
+<polygon fill="none" stroke="black" points="70,-520.2 70,-986.2 420,-986.2 420,-520.2 70,-520.2" style=""/>
+<text text-anchor="middle" x="245" y="-969.6" font-family="Times,serif" font-size="14.00" style="">Execute Inflation</text>
+</g>
+<g id="clust5" class="cluster" data-name="TuneInflation">
+
+<polygon fill="none" stroke="black" points="837,-398.6 837,-1004.6 1135,-1004.6 1135,-398.6 837,-398.6" style=""/>
+<text text-anchor="middle" x="986" y="-988" font-family="Times,serif" font-size="14.00" style="">Tune Inflation</text>
+</g>
+<!-- start -->
+<g id="node1" class="node" pointer-events="visible" data-name="start">
+
+<ellipse fill="#90ee90" stroke="black" cx="27" cy="-935" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="27" y="-931.4" font-family="Arial" font-size="12.00" style="">Start</text>
+</g>
+<!-- availableMintCheck -->
+<g id="node2" class="node" pointer-events="visible" data-name="availableMintCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="553,-850 456.91,-813.4 553,-776.8 649.09,-813.4 553,-850" style=""/>
+<text text-anchor="middle" x="553" y="-817" font-family="Arial" font-size="12.00" style="">There is</text>
+<text text-anchor="middle" x="553" y="-802.6" font-family="Arial" font-size="12.00" style="">available mint?</text>
+</g>
+<!-- start&#45;&gt;availableMintCheck -->
+<g id="edge1" class="edge" data-name="start-&gt;availableMintCheck">
+
+<path fill="none" stroke="black" d="M39.52,-918.75C46.51,-911.31 55.85,-902.96 66,-898.2 211.38,-830.12 266.73,-882.41 424,-850.2 445.71,-845.75 469.15,-839.65 490.01,-833.75" style=""/>
+<polygon fill="black" stroke="black" points="490.89,-837.14 499.53,-831.01 488.96,-830.41 490.89,-837.14" style=""/>
+</g>
+<!-- revertStillAvailableMints -->
+<g id="node6" class="node" pointer-events="visible" data-name="revertStillAvailableMints">
+
+<path fill="red" stroke="black" d="M756.2,-685.8C756.2,-685.8 667.8,-685.8 667.8,-685.8 661.8,-685.8 655.8,-679.8 655.8,-673.8 655.8,-673.8 655.8,-661.8 655.8,-661.8 655.8,-655.8 661.8,-649.8 667.8,-649.8 667.8,-649.8 756.2,-649.8 756.2,-649.8 762.2,-649.8 768.2,-655.8 768.2,-661.8 768.2,-661.8 768.2,-673.8 768.2,-673.8 768.2,-679.8 762.2,-685.8 756.2,-685.8" style=""/>
+<text text-anchor="middle" x="712" y="-664.2" font-family="Arial" font-size="12.00" style="">StillAvailableMints</text>
+</g>
+<!-- availableMintCheck&#45;&gt;revertStillAvailableMints -->
+<g id="edge4" class="edge" data-name="availableMintCheck-&gt;revertStillAvailableMints">
+
+<path fill="none" stroke="black" d="M581.06,-787.06C610.15,-760.79 655.33,-719.98 684.29,-693.83" style=""/>
+<polygon fill="black" stroke="black" points="686.52,-696.53 691.59,-687.23 681.83,-691.33 686.52,-696.53" style=""/>
+<text text-anchor="middle" x="659.62" y="-737.6" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- maxSupplyCheck -->
+<g id="node7" class="node" pointer-events="visible" data-name="maxSupplyCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="533,-704.4 428.05,-667.8 533,-631.2 637.95,-667.8 533,-704.4" style=""/>
+<text text-anchor="middle" x="533" y="-671.4" font-family="Arial" font-size="12.00" style="">Max supply is</text>
+<text text-anchor="middle" x="533" y="-657" font-family="Arial" font-size="12.00" style=""> capped to max?</text>
+</g>
+<!-- availableMintCheck&#45;&gt;maxSupplyCheck -->
+<g id="edge5" class="edge" data-name="availableMintCheck-&gt;maxSupplyCheck">
+
+<path fill="none" stroke="black" d="M548.26,-778.37C545.59,-759.19 542.22,-735 539.33,-714.22" style=""/>
+<polygon fill="black" stroke="black" points="542.83,-714.01 537.98,-704.58 535.9,-714.97 542.83,-714.01" style=""/>
+<text text-anchor="middle" x="551.39" y="-737.6" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- end -->
+<g id="node3" class="node" pointer-events="visible" data-name="end">
+
+<ellipse fill="#90ee90" stroke="black" cx="737" cy="-18" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="737" y="-14.4" font-family="Arial" font-size="12.00" style="">end</text>
+</g>
+<!-- adminCheck -->
+<g id="node4" class="node" pointer-events="visible" data-name="adminCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="613,-953 561.59,-935 613,-917 664.41,-935 613,-953" style=""/>
+<text text-anchor="middle" x="613" y="-931.4" font-family="Arial" font-size="12.00" style="">Admin?</text>
+</g>
+<!-- adminCheck&#45;&gt;availableMintCheck -->
+<g id="edge2" class="edge" data-name="adminCheck-&gt;availableMintCheck">
+
+<path fill="none" stroke="black" d="M605.64,-919.33C597.59,-903.29 584.34,-876.87 573.15,-854.56" style=""/>
+<polygon fill="black" stroke="black" points="576.31,-853.05 568.69,-845.68 570.05,-856.19 576.31,-853.05" style=""/>
+<text text-anchor="middle" x="592.62" y="-871.2" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertNotAdmin -->
+<g id="node5" class="node" pointer-events="visible" data-name="revertNotAdmin">
+
+<path fill="red" stroke="black" d="M749.19,-831.4C749.19,-831.4 704.81,-831.4 704.81,-831.4 698.81,-831.4 692.81,-825.4 692.81,-819.4 692.81,-819.4 692.81,-807.4 692.81,-807.4 692.81,-801.4 698.81,-795.4 704.81,-795.4 704.81,-795.4 749.19,-795.4 749.19,-795.4 755.19,-795.4 761.19,-801.4 761.19,-807.4 761.19,-807.4 761.19,-819.4 761.19,-819.4 761.19,-825.4 755.19,-831.4 749.19,-831.4" style=""/>
+<text text-anchor="middle" x="727" y="-809.8" font-family="Arial" font-size="12.00" style="">NotAdmin</text>
+</g>
+<!-- adminCheck&#45;&gt;revertNotAdmin -->
+<g id="edge3" class="edge" data-name="adminCheck-&gt;revertNotAdmin">
+
+<path fill="none" stroke="black" d="M625.2,-921.2C643.59,-901.9 678.8,-864.96 702.6,-840" style=""/>
+<polygon fill="black" stroke="black" points="705.08,-842.47 709.45,-832.81 700.01,-837.64 705.08,-842.47" style=""/>
+<text text-anchor="middle" x="679.39" y="-871.2" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- revertNotAdmin&#45;&gt;end -->
+<g id="edge30" class="edge" data-name="revertNotAdmin-&gt;end">
+
+<path fill="none" stroke="black" d="M747.42,-795.21C774.52,-770.34 819,-721.5 819,-668.8 819,-668.8 819,-668.8 819,-90 819,-63.01 793.3,-43.99 770.68,-32.47" style=""/>
+<polygon fill="black" stroke="black" points="772.18,-29.31 761.65,-28.21 769.2,-35.64 772.18,-29.31" style=""/>
+</g>
+<!-- revertStillAvailableMints&#45;&gt;end -->
+<g id="edge25" class="edge" data-name="revertStillAvailableMints-&gt;end">
+
+<path fill="none" stroke="black" d="M729.77,-649.56C750.21,-627.78 781,-588.19 781,-547.2 781,-547.2 781,-547.2 781,-90 781,-71.86 770.49,-54.49 759.74,-41.47" style=""/>
+<polygon fill="black" stroke="black" points="762.65,-39.48 753.39,-34.33 757.42,-44.13 762.65,-39.48" style=""/>
+</g>
+<!-- spanCheck -->
+<g id="node8" class="node" pointer-events="visible" data-name="spanCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="519,-582.8 429.71,-546.2 519,-509.6 608.29,-546.2 519,-582.8" style=""/>
+<text text-anchor="middle" x="519" y="-549.8" font-family="Arial" font-size="12.00" style="">Span has</text>
+<text text-anchor="middle" x="519" y="-535.4" font-family="Arial" font-size="12.00" style="">been reached</text>
+</g>
+<!-- maxSupplyCheck&#45;&gt;spanCheck -->
+<g id="edge6" class="edge" data-name="maxSupplyCheck-&gt;spanCheck">
+
+<path fill="none" stroke="black" d="M528.95,-632.21C527.5,-619.83 525.85,-605.68 524.31,-592.53" style=""/>
+<polygon fill="black" stroke="black" points="527.81,-592.33 523.17,-582.81 520.85,-593.14 527.81,-592.33" style=""/>
+<text text-anchor="middle" x="534.62" y="-604" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertMaxSupplyIsCapped -->
+<g id="node9" class="node" pointer-events="visible" data-name="revertMaxSupplyIsCapped">
+
+<path fill="red" stroke="black" d="M741.23,-564.2C741.23,-564.2 638.77,-564.2 638.77,-564.2 632.77,-564.2 626.77,-558.2 626.77,-552.2 626.77,-552.2 626.77,-540.2 626.77,-540.2 626.77,-534.2 632.77,-528.2 638.77,-528.2 638.77,-528.2 741.23,-528.2 741.23,-528.2 747.23,-528.2 753.23,-534.2 753.23,-540.2 753.23,-540.2 753.23,-552.2 753.23,-552.2 753.23,-558.2 747.23,-564.2 741.23,-564.2" style=""/>
+<text text-anchor="middle" x="690" y="-542.6" font-family="Arial" font-size="12.00" style="">MaxSupplyIsCapped</text>
+</g>
+<!-- maxSupplyCheck&#45;&gt;revertMaxSupplyIsCapped -->
+<g id="edge7" class="edge" data-name="maxSupplyCheck-&gt;revertMaxSupplyIsCapped">
+
+<path fill="none" stroke="black" d="M565.53,-642.02C592.69,-621.33 631.18,-592.01 658.14,-571.47" style=""/>
+<polygon fill="black" stroke="black" points="660.13,-574.36 665.96,-565.51 655.88,-568.79 660.13,-574.36" style=""/>
+<text text-anchor="middle" x="622.39" y="-604" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- enableCheck -->
+<g id="node10" class="node" pointer-events="visible" data-name="enableCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="519,-461.2 457.77,-424.6 519,-388 580.23,-424.6 519,-461.2" style=""/>
+<text text-anchor="middle" x="519" y="-428.2" font-family="Arial" font-size="12.00" style="">Inflation </text>
+<text text-anchor="middle" x="519" y="-413.8" font-family="Arial" font-size="12.00" style="">enable?</text>
+</g>
+<!-- spanCheck&#45;&gt;enableCheck -->
+<g id="edge8" class="edge" data-name="spanCheck-&gt;enableCheck">
+
+<path fill="none" stroke="black" d="M519,-509.32C519,-497.84 519,-484.97 519,-472.82" style=""/>
+<polygon fill="black" stroke="black" points="522.5,-472.97 519,-462.97 515.5,-472.97 522.5,-472.97" style=""/>
+<text text-anchor="middle" x="527.62" y="-482.4" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertSpanNotReached -->
+<g id="node11" class="node" pointer-events="visible" data-name="revertSpanNotReached">
+
+<path fill="red" stroke="black" d="M697.23,-442.6C697.23,-442.6 610.77,-442.6 610.77,-442.6 604.77,-442.6 598.77,-436.6 598.77,-430.6 598.77,-430.6 598.77,-418.6 598.77,-418.6 598.77,-412.6 604.77,-406.6 610.77,-406.6 610.77,-406.6 697.23,-406.6 697.23,-406.6 703.23,-406.6 709.23,-412.6 709.23,-418.6 709.23,-418.6 709.23,-430.6 709.23,-430.6 709.23,-436.6 703.23,-442.6 697.23,-442.6" style=""/>
+<text text-anchor="middle" x="654" y="-421" font-family="Arial" font-size="12.00" style="">SpanNotReached</text>
+</g>
+<!-- spanCheck&#45;&gt;revertSpanNotReached -->
+<g id="edge9" class="edge" data-name="spanCheck-&gt;revertSpanNotReached">
+
+<path fill="none" stroke="black" d="M546.65,-520.71C569.76,-500.23 602.6,-471.13 625.86,-450.53" style=""/>
+<polygon fill="black" stroke="black" points="627.97,-453.34 633.13,-444.09 623.33,-448.1 627.97,-453.34" style=""/>
+<text text-anchor="middle" x="596.39" y="-482.4" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- revertMaxSupplyIsCapped&#45;&gt;end -->
+<g id="edge26" class="edge" data-name="revertMaxSupplyIsCapped-&gt;end">
+
+<path fill="none" stroke="black" d="M701.62,-527.81C715.54,-505.25 737,-464.2 737,-425.6 737,-425.6 737,-425.6 737,-90 737,-76.08 737,-60.63 737,-47.7" style=""/>
+<polygon fill="black" stroke="black" points="740.5,-47.73 737,-37.73 733.5,-47.73 740.5,-47.73" style=""/>
+</g>
+<!-- executeInflationComponent -->
+<g id="node12" class="node" pointer-events="visible" data-name="executeInflationComponent">
+
+<polygon fill="violet" stroke="black" points="571.22,-339.8 466.78,-339.8 466.78,-335.8 462.78,-335.8 462.78,-331.8 466.78,-331.8 466.78,-311.8 462.78,-311.8 462.78,-307.8 466.78,-307.8 466.78,-303.8 571.22,-303.8 571.22,-339.8" style=""/>
+<polyline fill="none" stroke="black" points="466.78,-335.8 470.78,-335.8 470.78,-331.8 466.78,-331.8" style=""/>
+<polyline fill="none" stroke="black" points="466.78,-311.8 470.78,-311.8 470.78,-307.8 466.78,-307.8" style=""/>
+<text text-anchor="middle" x="519" y="-318.2" font-family="Arial" font-size="12.00" style="">Execute Inflation</text>
+</g>
+<!-- enableCheck&#45;&gt;executeInflationComponent -->
+<g id="edge10" class="edge" data-name="enableCheck-&gt;executeInflationComponent">
+
+<path fill="none" stroke="black" d="M519,-387.49C519,-375.63 519,-362.61 519,-351.38" style=""/>
+<polygon fill="black" stroke="black" points="522.5,-351.56 519,-341.56 515.5,-351.56 522.5,-351.56" style=""/>
+<text text-anchor="middle" x="527.62" y="-360.8" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- lastTuningOn -->
+<g id="node13" class="node" pointer-events="visible" data-name="lastTuningOn">
+
+<polygon fill="greenyellow" stroke="black" points="642.2,-266.7 571.8,-266.7 571.8,-230.1 642.2,-230.1 642.2,-266.7" style=""/>
+<text text-anchor="middle" x="607" y="-252" font-family="Arial" font-size="12.00" style="">Update </text>
+<text text-anchor="middle" x="607" y="-237.6" font-family="Arial" font-size="12.00" style="">last tuning</text>
+</g>
+<!-- enableCheck&#45;&gt;lastTuningOn -->
+<g id="edge11" class="edge" data-name="enableCheck-&gt;lastTuningOn">
+
+<path fill="none" stroke="black" d="M539.49,-400.08C552.6,-384.01 569.14,-361.73 580,-339.8 589.72,-320.17 596.65,-296.39 601.06,-278.14" style=""/>
+<polygon fill="black" stroke="black" points="604.44,-279.05 603.25,-268.53 597.61,-277.49 604.44,-279.05" style=""/>
+<text text-anchor="middle" x="599.39" y="-318.8" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- revertSpanNotReached&#45;&gt;end -->
+<g id="edge27" class="edge" data-name="revertSpanNotReached-&gt;end">
+
+<path fill="none" stroke="black" d="M666.44,-406.34C679.14,-386.99 697,-354.19 697,-322.8 697,-322.8 697,-322.8 697,-90 697,-72.58 706.25,-55.5 715.86,-42.45" style=""/>
+<polygon fill="black" stroke="black" points="718.37,-44.91 721.84,-34.91 712.89,-40.56 718.37,-44.91" style=""/>
+</g>
+<!-- executeInflationComponent&#45;&gt;lastTuningOn -->
+<g id="edge12" class="edge" data-name="executeInflationComponent-&gt;lastTuningOn">
+
+<path fill="none" stroke="black" d="M540.3,-303.52C551.17,-294.7 564.57,-283.83 576.51,-274.14" style=""/>
+<polygon fill="black" stroke="black" points="578.55,-276.99 584.11,-267.97 574.14,-271.56 578.55,-276.99" style=""/>
+</g>
+<!-- emitInflationRun -->
+<g id="node20" class="node" pointer-events="visible" data-name="emitInflationRun">
+
+<path fill="turquoise" stroke="black" d="M651.88,-182C651.88,-182 568.12,-182 568.12,-182 562.12,-182 556.12,-176 556.12,-170 556.12,-170 556.12,-158 556.12,-158 556.12,-152 562.12,-146 568.12,-146 568.12,-146 651.88,-146 651.88,-146 657.88,-146 663.88,-152 663.88,-158 663.88,-158 663.88,-170 663.88,-170 663.88,-176 657.88,-182 651.88,-182" style=""/>
+<text text-anchor="middle" x="610" y="-160.4" font-family="Arial" font-size="12.00" style="">Emit InflationRun</text>
+</g>
+<!-- lastTuningOn&#45;&gt;emitInflationRun -->
+<g id="edge18" class="edge" data-name="lastTuningOn-&gt;emitInflationRun">
+
+<path fill="none" stroke="black" d="M607.64,-229.93C608.02,-219.44 608.51,-205.84 608.95,-193.8" style=""/>
+<polygon fill="black" stroke="black" points="612.44,-194.08 609.31,-183.96 605.45,-193.83 612.44,-194.08" style=""/>
+<text text-anchor="middle" x="628.01" y="-203" font-family="Arial" font-size="10.00" style="">Continue</text>
+</g>
+<!-- add_supply -->
+<g id="node14" class="node" pointer-events="visible" data-name="add_supply">
+
+<polygon fill="greenyellow" stroke="black" points="282.04,-953.3 207.96,-953.3 207.96,-916.7 282.04,-916.7 282.04,-953.3" style=""/>
+<text text-anchor="middle" x="245" y="-938.6" font-family="Arial" font-size="12.00" style="">Calculate </text>
+<text text-anchor="middle" x="245" y="-924.2" font-family="Arial" font-size="12.00" style="">add supply</text>
+</g>
+<!-- add_supplyCheck -->
+<g id="node15" class="node" pointer-events="visible" data-name="add_supplyCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="245,-850 86.65,-813.4 245,-776.8 403.35,-813.4 245,-850" style=""/>
+<text text-anchor="middle" x="245" y="-817" font-family="Arial" font-size="12.00" style="">max_supply + add_supply </text>
+<text text-anchor="middle" x="245" y="-802.6" font-family="Arial" font-size="12.00" style="">&gt;= MAX_CAP ?</text>
+</g>
+<!-- add_supply&#45;&gt;add_supplyCheck -->
+<g id="edge13" class="edge" data-name="add_supply-&gt;add_supplyCheck">
+
+<path fill="none" stroke="black" d="M245,-916.35C245,-901.97 245,-880.97 245,-861.77" style=""/>
+<polygon fill="black" stroke="black" points="248.5,-861.93 245,-851.93 241.5,-861.93 248.5,-861.93" style=""/>
+</g>
+<!-- updateAvailableMintA -->
+<g id="node16" class="node" pointer-events="visible" data-name="updateAvailableMintA">
+
+<polygon fill="greenyellow" stroke="black" points="234.05,-686.1 85.95,-686.1 85.95,-649.5 234.05,-649.5 234.05,-686.1" style=""/>
+<text text-anchor="middle" x="160" y="-671.4" font-family="Arial" font-size="12.00" style="">available mint &lt;&lt; </text>
+<text text-anchor="middle" x="160" y="-657" font-family="Arial" font-size="12.00" style="">MAX_CAP - max_supply</text>
+</g>
+<!-- add_supplyCheck&#45;&gt;updateAvailableMintA -->
+<g id="edge14" class="edge" data-name="add_supplyCheck-&gt;updateAvailableMintA">
+
+<path fill="none" stroke="black" d="M226.35,-780.89C211.29,-755.46 190.34,-720.06 176.04,-695.89" style=""/>
+<polygon fill="black" stroke="black" points="179.22,-694.41 171.12,-687.59 173.2,-697.97 179.22,-694.41" style=""/>
+<text text-anchor="middle" x="220.62" y="-737.6" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- updateAvailableMintB -->
+<g id="node18" class="node" pointer-events="visible" data-name="updateAvailableMintB">
+
+<polygon fill="greenyellow" stroke="black" points="405.05,-686.1 256.95,-686.1 256.95,-649.5 405.05,-649.5 405.05,-686.1" style=""/>
+<text text-anchor="middle" x="331" y="-671.4" font-family="Arial" font-size="12.00" style="">available mint &lt;&lt; </text>
+<text text-anchor="middle" x="331" y="-657" font-family="Arial" font-size="12.00" style="">MAX_CAP - max_supply</text>
+</g>
+<!-- add_supplyCheck&#45;&gt;updateAvailableMintB -->
+<g id="edge16" class="edge" data-name="add_supplyCheck-&gt;updateAvailableMintB">
+
+<path fill="none" stroke="black" d="M250.46,-777.7C254.33,-760.21 260.76,-739.24 271.22,-722.6 277.99,-711.83 287.51,-701.91 296.97,-693.6" style=""/>
+<polygon fill="black" stroke="black" points="298.95,-696.5 304.39,-687.41 294.47,-691.13 298.95,-696.5" style=""/>
+<text text-anchor="middle" x="277.39" y="-737.6" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- updateMaxSupplyA -->
+<g id="node17" class="node" pointer-events="visible" data-name="updateMaxSupplyA">
+
+<polygon fill="greenyellow" stroke="black" points="236.07,-564.2 77.93,-564.2 77.93,-528.2 236.07,-528.2 236.07,-564.2" style=""/>
+<text text-anchor="middle" x="157" y="-542.6" font-family="Arial" font-size="12.00" style="">max_supply &lt;&lt; MAX_CAP</text>
+</g>
+<!-- updateAvailableMintA&#45;&gt;updateMaxSupplyA -->
+<g id="edge15" class="edge" data-name="updateAvailableMintA-&gt;updateMaxSupplyA">
+
+<path fill="none" stroke="black" d="M159.56,-649.15C159.07,-629.87 158.29,-598.71 157.72,-575.9" style=""/>
+<polygon fill="black" stroke="black" points="161.22,-575.95 157.47,-566.04 154.22,-576.13 161.22,-575.95" style=""/>
+</g>
+<!-- updateMaxSupplyB -->
+<g id="node19" class="node" pointer-events="visible" data-name="updateMaxSupplyB">
+
+<polygon fill="greenyellow" stroke="black" points="412.07,-564.2 253.93,-564.2 253.93,-528.2 412.07,-528.2 412.07,-564.2" style=""/>
+<text text-anchor="middle" x="333" y="-542.6" font-family="Arial" font-size="12.00" style="">max_supply &lt;&lt; MAX_CAP</text>
+</g>
+<!-- updateAvailableMintB&#45;&gt;updateMaxSupplyB -->
+<g id="edge17" class="edge" data-name="updateAvailableMintB-&gt;updateMaxSupplyB">
+
+<path fill="none" stroke="black" d="M331.3,-649.15C331.62,-629.87 332.14,-598.71 332.52,-575.9" style=""/>
+<polygon fill="black" stroke="black" points="336.02,-576.1 332.68,-566.04 329.02,-575.98 336.02,-576.1" style=""/>
+</g>
+<!-- tuneInflationComponent -->
+<g id="node29" class="node" pointer-events="visible" data-name="tuneInflationComponent">
+
+<polygon fill="violet" stroke="black" points="665.22,-109 576.78,-109 576.78,-105 572.78,-105 572.78,-101 576.78,-101 576.78,-81 572.78,-81 572.78,-77 576.78,-77 576.78,-73 665.22,-73 665.22,-109" style=""/>
+<polyline fill="none" stroke="black" points="576.78,-105 580.78,-105 580.78,-101 576.78,-101" style=""/>
+<polyline fill="none" stroke="black" points="576.78,-81 580.78,-81 580.78,-77 576.78,-77" style=""/>
+<text text-anchor="middle" x="621" y="-87.4" font-family="Arial" font-size="12.00" style="">Tune Inflation</text>
+</g>
+<!-- emitInflationRun&#45;&gt;tuneInflationComponent -->
+<g id="edge31" class="edge" data-name="emitInflationRun-&gt;tuneInflationComponent">
+
+<path fill="none" stroke="black" d="M612.66,-145.81C613.85,-138.14 615.28,-128.89 616.62,-120.24" style=""/>
+<polygon fill="black" stroke="black" points="620.06,-120.94 618.13,-110.52 613.14,-119.87 620.06,-120.94" style=""/>
+</g>
+<!-- newSpanCheck -->
+<g id="node21" class="node" pointer-events="visible" data-name="newSpanCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="986,-971.6 844.7,-935 986,-898.4 1127.3,-935 986,-971.6" style=""/>
+<text text-anchor="middle" x="986" y="-938.6" font-family="Arial" font-size="12.00" style="">New Span is </text>
+<text text-anchor="middle" x="986" y="-924.2" font-family="Arial" font-size="12.00" style="">constrained {max,min}?</text>
+</g>
+<!-- newRateCheck -->
+<g id="node22" class="node" pointer-events="visible" data-name="newRateCheck">
+
+<polygon fill="#ffe4b5" stroke="black" points="1008,-850 889.03,-813.4 1008,-776.8 1126.97,-813.4 1008,-850" style=""/>
+<text text-anchor="middle" x="1008" y="-817" font-family="Arial" font-size="12.00" style="">New Rate is </text>
+<text text-anchor="middle" x="1008" y="-802.6" font-family="Arial" font-size="12.00" style="">constrained {max}?</text>
+</g>
+<!-- newSpanCheck&#45;&gt;newRateCheck -->
+<g id="edge19" class="edge" data-name="newSpanCheck-&gt;newRateCheck">
+
+<path fill="none" stroke="black" d="M992.3,-899.73C994.63,-887.11 997.29,-872.62 999.76,-859.21" style=""/>
+<polygon fill="black" stroke="black" points="1003.13,-860.22 1001.5,-849.75 996.25,-858.95 1003.13,-860.22" style=""/>
+<text text-anchor="middle" x="1005.62" y="-871.2" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertSpanOfflimited -->
+<g id="node23" class="node" pointer-events="visible" data-name="revertSpanOfflimited">
+
+<path fill="red" stroke="black" d="M927.2,-758.6C927.2,-758.6 856.8,-758.6 856.8,-758.6 850.8,-758.6 844.8,-752.6 844.8,-746.6 844.8,-746.6 844.8,-734.6 844.8,-734.6 844.8,-728.6 850.8,-722.6 856.8,-722.6 856.8,-722.6 927.2,-722.6 927.2,-722.6 933.2,-722.6 939.2,-728.6 939.2,-734.6 939.2,-734.6 939.2,-746.6 939.2,-746.6 939.2,-752.6 933.2,-758.6 927.2,-758.6" style=""/>
+<text text-anchor="middle" x="892" y="-737" font-family="Arial" font-size="12.00" style="">SpanOfflimited</text>
+</g>
+<!-- newSpanCheck&#45;&gt;revertSpanOfflimited -->
+<g id="edge20" class="edge" data-name="newSpanCheck-&gt;revertSpanOfflimited">
+
+<path fill="none" stroke="black" d="M939.25,-910.16C916.93,-896.03 892.42,-875.85 880,-850.2 867.7,-824.79 873.76,-792.21 880.99,-769.39" style=""/>
+<polygon fill="black" stroke="black" points="884.21,-770.77 884.17,-760.18 877.6,-768.48 884.21,-770.77" style=""/>
+<text text-anchor="middle" x="907.39" y="-871.2" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- updateInflationRate -->
+<g id="node24" class="node" pointer-events="visible" data-name="updateInflationRate">
+
+<polygon fill="greenyellow" stroke="black" points="1102.87,-686.1 1021.13,-686.1 1021.13,-649.5 1102.87,-649.5 1102.87,-686.1" style=""/>
+<text text-anchor="middle" x="1062" y="-671.4" font-family="Arial" font-size="12.00" style="">Update</text>
+<text text-anchor="middle" x="1062" y="-657" font-family="Arial" font-size="12.00" style="">inflation rate</text>
+</g>
+<!-- newRateCheck&#45;&gt;updateInflationRate -->
+<g id="edge21" class="edge" data-name="newRateCheck-&gt;updateInflationRate">
+
+<path fill="none" stroke="black" d="M1020.12,-780.17C1029.51,-755.19 1042.41,-720.91 1051.4,-697" style=""/>
+<polygon fill="black" stroke="black" points="1054.57,-698.51 1054.81,-687.92 1048.01,-696.05 1054.57,-698.51" style=""/>
+<text text-anchor="middle" x="1049.62" y="-737.6" font-family="Arial" font-size="10.00" style="">Yes</text>
+</g>
+<!-- revertRateOfflimited -->
+<g id="node25" class="node" pointer-events="visible" data-name="revertRateOfflimited">
+
+<path fill="red" stroke="black" d="M991.03,-685.8C991.03,-685.8 922.97,-685.8 922.97,-685.8 916.97,-685.8 910.97,-679.8 910.97,-673.8 910.97,-673.8 910.97,-661.8 910.97,-661.8 910.97,-655.8 916.97,-649.8 922.97,-649.8 922.97,-649.8 991.03,-649.8 991.03,-649.8 997.03,-649.8 1003.03,-655.8 1003.03,-661.8 1003.03,-661.8 1003.03,-673.8 1003.03,-673.8 1003.03,-679.8 997.03,-685.8 991.03,-685.8" style=""/>
+<text text-anchor="middle" x="957" y="-664.2" font-family="Arial" font-size="12.00" style="">RateOfflimited</text>
+</g>
+<!-- newRateCheck&#45;&gt;revertRateOfflimited -->
+<g id="edge22" class="edge" data-name="newRateCheck-&gt;revertRateOfflimited">
+
+<path fill="none" stroke="black" d="M996.55,-780.17C987.67,-755.16 975.48,-720.83 966.99,-696.92" style=""/>
+<polygon fill="black" stroke="black" points="970.3,-695.78 963.65,-687.53 963.7,-698.12 970.3,-695.78" style=""/>
+<text text-anchor="middle" x="994.39" y="-737.6" font-family="Arial" font-size="10.00" style="">No</text>
+</g>
+<!-- end2 -->
+<g id="node28" class="node" pointer-events="visible" data-name="end2">
+
+<ellipse fill="#90ee90" stroke="black" cx="924" cy="-546.2" rx="27" ry="18" style=""/>
+<text text-anchor="middle" x="924" y="-542.6" font-family="Arial" font-size="12.00" style="">end</text>
+</g>
+<!-- revertSpanOfflimited&#45;&gt;end2 -->
+<g id="edge28" class="edge" data-name="revertSpanOfflimited-&gt;end2">
+
+<path fill="none" stroke="black" d="M892.72,-722.18C893.81,-700.63 896.39,-662.89 902,-631 905.34,-612.05 910.83,-591.11 915.5,-574.9" style=""/>
+<polygon fill="black" stroke="black" points="918.8,-576.06 918.28,-565.48 912.09,-574.08 918.8,-576.06" style=""/>
+</g>
+<!-- updateSpan -->
+<g id="node26" class="node" pointer-events="visible" data-name="updateSpan">
+
+<polygon fill="greenyellow" stroke="black" points="1089.2,-564.5 1034.8,-564.5 1034.8,-527.9 1089.2,-527.9 1089.2,-564.5" style=""/>
+<text text-anchor="middle" x="1062" y="-549.8" font-family="Arial" font-size="12.00" style="">Update</text>
+<text text-anchor="middle" x="1062" y="-535.4" font-family="Arial" font-size="12.00" style="">span</text>
+</g>
+<!-- updateInflationRate&#45;&gt;updateSpan -->
+<g id="edge23" class="edge" data-name="updateInflationRate-&gt;updateSpan">
+
+<path fill="none" stroke="black" d="M1062,-649.15C1062,-629.99 1062,-599.06 1062,-576.29" style=""/>
+<polygon fill="black" stroke="black" points="1065.5,-576.43 1062,-566.43 1058.5,-576.43 1065.5,-576.43" style=""/>
+</g>
+<!-- revertRateOfflimited&#45;&gt;end2 -->
+<g id="edge29" class="edge" data-name="revertRateOfflimited-&gt;end2">
+
+<path fill="none" stroke="black" d="M952.2,-649.41C946.84,-629.99 938.09,-598.28 931.76,-575.32" style=""/>
+<polygon fill="black" stroke="black" points="935.13,-574.39 929.1,-565.68 928.39,-576.25 935.13,-574.39" style=""/>
+</g>
+<!-- emitInflationTuned -->
+<g id="node27" class="node" pointer-events="visible" data-name="emitInflationTuned">
+
+<path fill="turquoise" stroke="black" d="M1109.89,-442.6C1109.89,-442.6 1014.11,-442.6 1014.11,-442.6 1008.11,-442.6 1002.11,-436.6 1002.11,-430.6 1002.11,-430.6 1002.11,-418.6 1002.11,-418.6 1002.11,-412.6 1008.11,-406.6 1014.11,-406.6 1014.11,-406.6 1109.89,-406.6 1109.89,-406.6 1115.89,-406.6 1121.89,-412.6 1121.89,-418.6 1121.89,-418.6 1121.89,-430.6 1121.89,-430.6 1121.89,-436.6 1115.89,-442.6 1109.89,-442.6" style=""/>
+<text text-anchor="middle" x="1062" y="-421" font-family="Arial" font-size="12.00" style="">Emit InflationTuned</text>
+</g>
+<!-- updateSpan&#45;&gt;emitInflationTuned -->
+<g id="edge24" class="edge" data-name="updateSpan-&gt;emitInflationTuned">
+
+<path fill="none" stroke="black" d="M1062,-527.55C1062,-508.27 1062,-477.11 1062,-454.3" style=""/>
+<polygon fill="black" stroke="black" points="1065.5,-454.44 1062,-444.44 1058.5,-454.44 1065.5,-454.44" style=""/>
+</g>
+<!-- tuneInflationComponent&#45;&gt;end -->
+<g id="edge32" class="edge" data-name="tuneInflationComponent-&gt;end">
+
+<path fill="none" stroke="black" d="M649.38,-72.63C667.18,-61.74 690.07,-47.73 707.99,-36.76" style=""/>
+<polygon fill="black" stroke="black" points="709.63,-39.85 716.34,-31.65 705.98,-33.88 709.63,-39.85" style=""/>
+</g>
+</g>
+</svg>
