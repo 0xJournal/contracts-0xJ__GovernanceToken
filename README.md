@@ -80,7 +80,7 @@ The `GovernanceToken` contract represents a token contract that implements the E
 This documentation provides an overview of the contract's purpose, its functions, and the associated requirements and effects. Please note that this documentation is generated based on the provided source code, and it's important to review and verify the accuracy of the generated documentation.
 
 # Flowchart Diagrams for Functions
-| ![runInflation](https://github.com/0xjournal/contracts-0xJ__GovernanceToken/assets/1704545/78b2eff5-1282-44b7-82fc-e64678b73ce3) | ![mint](https://github.com/0xjournal/contracts-0xJ__GovernanceToken/assets/1704545/6a8462d1-6b06-4875-b4f4-1049b0f5338f) | ![burn](https://github.com/0xjournal/contracts-0xJ__GovernanceToken/assets/1704545/83c87a3c-4025-49b0-bada-0975e22fc066) |
+| ![runInflation](https://github.com/0xjournal/contracts-0xJ__GovernanceToken/assets/1704545/9f524679-852c-4b5f-81fe-8ec41232c5d6) | ![mint](https://github.com/0xjournal/contracts-0xJ__GovernanceToken/assets/1704545/6f3e5fad-f5ea-4ffb-a781-0feea30e872b) | ![burn](https://github.com/0xjournal/contracts-0xJ__GovernanceToken/assets/1704545/9f93dd66-cd1c-4785-8ecd-aa03ac753ea2) |
 | - | - | - |
 | runInflation() | mint() | burn() |
 
