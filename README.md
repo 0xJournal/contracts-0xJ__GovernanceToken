@@ -1,4 +1,9 @@
 # 0xJ Governance Token Contract
+
+## Deployed at Ethereum Mainnet
+- [Contract Address : 0x726671354d9ac892913d60a91fd4ed9c3d38d262](https://etherscan.io/token/0x726671354d9ac892913d60a91fd4ed9c3d38d262)
+
+## Documentation
 ```
 /**
  * @title GovernanceToken
